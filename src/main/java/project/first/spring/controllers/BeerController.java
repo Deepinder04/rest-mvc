@@ -15,15 +15,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @RestController
 public class BeerController {
-
     private final BeerService beerService;
 
-    @RequestMapping("api/v1/beerList")
-    public List<Beer> beerList(){
-        return beerService.getBeerList();
+    @RequestMapping("/api/v1/beer")
+    public List<Beer> listBeers(){
+        return beerService.listBeers();
     }
+
     public Beer getBeerById(UUID id){
+
+        log.debug("Get Beer by Id - in controller");
+
         return beerService.getBeerById(id);
     }
+
 }
+
+
 

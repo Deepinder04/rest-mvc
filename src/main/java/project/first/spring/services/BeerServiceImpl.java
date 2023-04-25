@@ -13,54 +13,62 @@ import java.util.*;
 @Service
 public class BeerServiceImpl implements BeerService {
 
-    private Map<UUID,Beer> beerMap;
+    private Map<UUID, Beer> beerMap;
 
     public BeerServiceImpl() {
-        this.beerMap=new HashMap<>();
+        this.beerMap = new HashMap<>();
 
         Beer beer1 = Beer.builder()
                 .id(UUID.randomUUID())
-                .beerName("koala")
-                .beerStyle(BeerStyle.PORTER)
-                .price(new BigDecimal("453"))
-                .upc("24342352")
-                .quantityOnHand(123)
+                .version(1)
+                .beerName("Galaxy Cat")
+                .beerStyle(BeerStyle.PALE_ALE)
+                .upc("12356")
+                .price(new BigDecimal("12.99"))
+                .quantityOnHand(122)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
 
         Beer beer2 = Beer.builder()
                 .id(UUID.randomUUID())
-                .beerName("blue")
-                .beerStyle(BeerStyle.ALE)
-                .price(new BigDecimal("4323"))
-                .upc("243423352")
-                .quantityOnHand(13)
+                .version(1)
+                .beerName("Crank")
+                .beerStyle(BeerStyle.PALE_ALE)
+                .upc("12356222")
+                .price(new BigDecimal("11.99"))
+                .quantityOnHand(392)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
 
         Beer beer3 = Beer.builder()
                 .id(UUID.randomUUID())
-                .beerName("white")
-                .beerStyle(BeerStyle.GOSE)
-                .price(new BigDecimal("4536"))
-                .upc("243472352")
-                .quantityOnHand(1231)
+                .version(1)
+                .beerName("Sunshine City")
+                .beerStyle(BeerStyle.IPA)
+                .upc("12356")
+                .price(new BigDecimal("13.99"))
+                .quantityOnHand(144)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-        beerMap.put(beer1.getId(),beer1);
-        beerMap.put(beer2.getId(),beer2);
-        beerMap.put(beer3.getId(),beer3);
+
+        beerMap.put(beer1.getId(), beer1);
+        beerMap.put(beer2.getId(), beer2);
+        beerMap.put(beer3.getId(), beer3);
     }
 
     @Override
-    public List<Beer> getBeerList() {
+    public List<Beer> listBeers(){
         return new ArrayList<>(beerMap.values());
     }
+
     @Override
     public Beer getBeerById(UUID id) {
-         return beerMap.get(id);
+
+        log.debug("Get Beer by Id - in service. Id: " + id.toString());
+
+        return beerMap.get(id);
     }
 }
