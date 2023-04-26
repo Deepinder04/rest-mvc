@@ -2,6 +2,7 @@ package project.first.spring.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,11 @@ public class BeerController {
     @PostMapping
     public ResponseEntity handlePost(@RequestBody Beer beer){
         Beer beerSaved = beerService.saveBeer(beer);
-        return new ResponseEntity(HttpStatus.CREATED);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Location","/api/v1/beer/"+beerSaved.getId().toString());
+
+        return new ResponseEntity(header,HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
