@@ -30,7 +30,7 @@ public class BeerController {
     @PutMapping("{beerId}")
     public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId,@RequestBody Beer beer){
 
-        beerService.updateBeerBuId(beerId,beer);
+        beerService.updateById(beerId,beer);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -54,7 +54,7 @@ public class BeerController {
 
         log.debug("Get Beer by Id - in controller");
 
-        return beerService.getBeerById(beerId);
+        return beerService.getById(beerId);
     }
 
 }
