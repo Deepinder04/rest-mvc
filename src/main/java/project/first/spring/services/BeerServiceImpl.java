@@ -1,7 +1,5 @@
 package project.first.spring.services;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import project.first.spring.model.Beer;
@@ -90,5 +88,16 @@ public class BeerServiceImpl implements BeerService {
 
         beerMap.put(beerSaved.getId(),beerSaved);
         return beerSaved;
+    }
+
+    @Override
+    public void updateBeerBuId(UUID beerId, Beer beer) {
+      Beer updateBeer = beerMap.get(beerId);
+      updateBeer.setBeerName(beer.getBeerName());
+      updateBeer.setBeerStyle(beer.getBeerStyle());
+      updateBeer.setPrice(beer.getPrice());
+      updateBeer.setUpc(beer.getUpc());
+      updateBeer.setQuantityOnHand(beer.getQuantityOnHand());
+      beerMap.put(beerId,updateBeer);
     }
 }
