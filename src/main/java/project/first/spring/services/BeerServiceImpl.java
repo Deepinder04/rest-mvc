@@ -2,6 +2,7 @@ package project.first.spring.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import project.first.spring.model.Beer;
 import project.first.spring.model.BeerStyle;
 
@@ -104,5 +105,30 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void deleteById(UUID beerId) {
         beerMap.remove(beerId);
+    }
+
+    @Override
+    public void updatePatchById(UUID beerId, Beer beer) {
+        Beer patchBeer = beerMap.get(beerId);
+
+        if(StringUtils.hasText(beer.getBeerName())){
+            patchBeer.setBeerName(beer.getBeerName());
+        }
+
+        if(beer.getBeerStyle()!=null){
+            patchBeer.setBeerStyle(beer.getBeerStyle());
+        }
+
+        if(beer.getQuantityOnHand()!=null){
+            patchBeer.setQuantityOnHand(beer.getQuantityOnHand());
+        }
+
+        if(beer.getPrice()!=null){
+            patchBeer.setPrice(beer.getPrice());
+        }
+
+        if(StringUtils.hasText(beer.getUpc())){
+            patchBeer.setUpc(beer.getUpc());
+        }
     }
 }

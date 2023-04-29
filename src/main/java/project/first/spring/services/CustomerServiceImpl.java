@@ -1,6 +1,7 @@
 package project.first.spring.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import project.first.spring.model.Customer;
 
 import java.time.LocalDateTime;
@@ -72,6 +73,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteById(UUID customerId) {
         customerMap.remove(customerId);
+    }
+
+    @Override
+    public void patchCustomerById(UUID customerId, Customer customer) {
+
+        Customer customerPatch = customerMap.get(customerId);
+        if(StringUtils.hasText(customer.getCustomerName())){
+            customerPatch.setCustomerName(customer.getCustomerName());
+        }
     }
 
     @Override
