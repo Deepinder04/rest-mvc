@@ -1,19 +1,17 @@
 package project.first.spring.controllers;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.first.spring.model.Beer;
 import project.first.spring.model.Customer;
 import project.first.spring.services.CustomerService;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/customer")
 public class CustomerController {

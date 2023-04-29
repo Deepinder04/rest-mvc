@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import project.first.spring.model.Beer;
-import project.first.spring.services.BeerService;
-import project.first.spring.services.BeerServiceImpl;
+import project.first.spring.model.Customer;
+import project.first.spring.services.CustomerService;
+import project.first.spring.services.CustomerServiceImpl;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,61 +20,59 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(BeerController.class)
-class BeerControllerTest {
+@WebMvcTest(CustomerController.class)
+public class CustomerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     ObjectMapper objectMapper;
-
     @MockBean
-    BeerService beerService;
+    CustomerService customerService;
 
-    BeerService beerServiceImpl;
+    CustomerService customerServiceImpl;
 
     @BeforeEach
     void setUp(){
-        beerServiceImpl =new BeerServiceImpl();
+        customerServiceImpl = new CustomerServiceImpl();
     }
 
     @Test
-    public void testCreateNewBeer() throws Exception {
-        Beer mockBeer = beerServiceImpl.listBeers().get(0);
-        mockBeer.setId(null);
-        mockBeer.setVersion(null);
+    public void testCreateCustomer() throws Exception {
+        Customer mockedCustomer = customerServiceImpl.customerList().get(0);
+        mockedCustomer.setId(null);
+        mockedCustomer.setVersion(null);
 
-        given(beerService.saveBeer(any(Beer.class))).willReturn(beerServiceImpl.listBeers().get(1));
-        mockMvc.perform(post("/api/v1/beer")
+        given(customerService.saveCustomer(any(Customer.class))).willReturn(customerServiceImpl.customerList().get(1));
+        mockMvc.perform(post("/api/v1/customer")
                 .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(mockBeer))
+                .content(objectMapper.writeValueAsString(mockedCustomer))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
 
     @Test
-    public void listBeerTest() throws Exception {
-        given(beerService.listBeers()).willReturn(beerServiceImpl.listBeers());
+    public void getCustomerByIdTest() throws Exception {
+        Customer mockedCustomer = customerServiceImpl.customerList().get(0);
+        given(customerService.getById(mockedCustomer.getId())).willReturn(mockedCustomer);
 
-        mockMvc.perform(get("/api/v1/beer").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/customer/"+mockedCustomer.getId()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.customerName",is(mockedCustomer.getCustomerName())));
+    }
+
+    @Test
+    public void listCustomersTest() throws Exception {
+        given(customerService.customerList()).willReturn(customerServiceImpl.customerList());
+
+        mockMvc.perform(get("/api/v1/customer").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()",is(3)));
     }
 
-    @Test
-    public void getBeerByIdTest() throws Exception {
 
-        Beer mockBeer = beerServiceImpl.listBeers().get(0);
-        given(beerService.getById(mockBeer.getId())).willReturn(mockBeer);
-
-        mockMvc.perform(get("/api/v1/beer/"+mockBeer.getId()).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id",is(mockBeer.getId().toString())))
-                .andExpect(jsonPath("$.beerName",is(mockBeer.getBeerName())));
-
-    }
 }
