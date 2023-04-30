@@ -9,15 +9,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import project.first.spring.model.Beer;
 import project.first.spring.model.Customer;
 import project.first.spring.services.CustomerService;
 import project.first.spring.services.CustomerServiceImpl;
 
+import java.util.UUID;
+
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CustomerController.class)
@@ -36,6 +39,19 @@ public class CustomerControllerTest {
     @BeforeEach
     void setUp(){
         customerServiceImpl = new CustomerServiceImpl();
+    }
+
+
+    @Test
+    void testUpdateCustomer() throws Exception {
+        Customer mockedCustomer = customerServiceImpl.customerList().get(0);
+
+        mockMvc.perform(put("/api/v1/customer/"+mockedCustomer.getId())
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(mockedCustomer))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+        verify(customerService).updateById(any(UUID.class),any(Customer.class));
     }
 
     @Test
