@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,6 +17,7 @@ import project.first.spring.services.CustomerServiceImpl;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -41,6 +43,19 @@ public class CustomerControllerTest {
         customerServiceImpl = new CustomerServiceImpl();
     }
 
+    @Test
+    void testDeleteCustomer() throws Exception {
+        Customer mockedCustomer = customerServiceImpl.customerList().get(0);
+
+        mockMvc.perform(delete("/api/v1/customer/"+mockedCustomer.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        ArgumentCaptor<UUID> uuidArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
+        verify(customerService).deleteById(uuidArgumentCaptor.capture());
+
+        assertThat(mockedCustomer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    }
 
     @Test
     void testUpdateCustomer() throws Exception {

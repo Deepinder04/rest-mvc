@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,6 +16,7 @@ import project.first.spring.services.BeerServiceImpl;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -42,6 +44,20 @@ class BeerControllerTest {
     }
 
     @Test
+    void testDeleteBeer() throws Exception {
+        Beer mockedBeer = beerServiceImpl.listBeers().get(0);
+
+        mockMvc.perform(delete("/api/v1/beer/"+ mockedBeer.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        ArgumentCaptor<UUID> uuidArgumentCaptor = ArgumentCaptor.forClass(UUID.class);
+        verify(beerService).deleteById(uuidArgumentCaptor.capture());
+
+        assertThat(mockedBeer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    }
+
+    @Test
     void testUpdateBeer() throws Exception {
         Beer mockedBeer = beerServiceImpl.listBeers().get(0);
 
@@ -53,7 +69,6 @@ class BeerControllerTest {
 
         verify(beerService).updateById(any(UUID.class),any(Beer.class));
     }
-
 
     @Test
     public void testCreateNewBeer() throws Exception {
