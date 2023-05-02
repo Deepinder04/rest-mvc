@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.first.spring.model.Customer;
+import project.first.spring.model.CustomerDTO;
 import project.first.spring.services.CustomerService;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PatchMapping("{customerId}")
-    public ResponseEntity patchCustomerById(@PathVariable UUID customerId,@RequestBody Customer customer){
+    public ResponseEntity patchCustomerById(@PathVariable UUID customerId,@RequestBody CustomerDTO customerDTO){
 
-        customerService.patchCustomerById(customerId,customer);
+        customerService.patchCustomerById(customerId, customerDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -32,29 +32,29 @@ public class CustomerController {
     }
 
     @PutMapping("{customerId}")
-    public ResponseEntity updateById(@PathVariable("customerId") UUID customerId,@RequestBody Customer customer){
+    public ResponseEntity updateById(@PathVariable("customerId") UUID customerId,@RequestBody CustomerDTO customerDTO){
 
-        customerService.updateById(customerId,customer);
+        customerService.updateById(customerId, customerDTO);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity addCustomer(@RequestBody Customer customer){
-        Customer savedCustomer = customerService.saveCustomer(customer);
+    public ResponseEntity addCustomer(@RequestBody CustomerDTO customerDTO){
+        CustomerDTO savedCustomerDTO = customerService.saveCustomer(customerDTO);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","api/v1/customer/"+savedCustomer.getId().toString());
+        headers.add("Location","api/v1/customer/"+ savedCustomerDTO.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Customer> listCustomers(){
+    public List<CustomerDTO> listCustomers(){
         return customerService.customerList();
     }
 
     @RequestMapping(value = "{customerId}",method = RequestMethod.GET)
-    public Customer getById(@PathVariable("customerId")UUID customerId){
+    public CustomerDTO getById(@PathVariable("customerId")UUID customerId){
         return customerService.getById(customerId);
     }
 }
