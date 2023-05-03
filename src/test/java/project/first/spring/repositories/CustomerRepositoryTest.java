@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import project.first.spring.entities.Customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class CustomerRepositoryTest {
