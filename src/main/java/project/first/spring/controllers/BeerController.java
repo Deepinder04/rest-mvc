@@ -10,6 +10,7 @@ import project.first.spring.model.BeerDTO;
 import project.first.spring.services.BeerService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -57,7 +58,7 @@ public class BeerController {
     }
 
     @RequestMapping(value = "{beerId}",method = RequestMethod.GET)
-    public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId){
+    public Optional<BeerDTO> getBeerById(@PathVariable("beerId") UUID beerId){
 
         log.debug("Get Beer by Id - in controller");
 

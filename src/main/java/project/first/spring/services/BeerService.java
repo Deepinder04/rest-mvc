@@ -2,13 +2,14 @@ package project.first.spring.services;
 
 import project.first.spring.model.BeerDTO;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BeerService {
 
     List<BeerDTO> listBeers();
 
-    BeerDTO getById(UUID id);
+    Optional<BeerDTO> getById(UUID id);
 
     BeerDTO saveBeer(BeerDTO beerDTO);
 

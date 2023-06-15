@@ -8,7 +8,9 @@ import project.first.spring.model.BeerDTO;
 import project.first.spring.repositories.BeerRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -19,12 +21,15 @@ public class BeerServiceJPA implements BeerService {
     private final BeerMapper beerMapper;
     @Override
     public List<BeerDTO> listBeers() {
-        return null;
+        return beerRepository.findAll().stream()
+                .map(beerMapper::beerToBeerDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public BeerDTO getById(UUID id) {
-        return null;
+    public Optional<BeerDTO> getById(UUID id) {
+        return Optional.ofNullable(beerMapper.beerToBeerDto(beerRepository.findById(id)
+                .orElse(null)));
     }
 
     @Override
