@@ -64,7 +64,7 @@ public class BeerController {
 
         return beerService.getById(beerId);
     }
-//merge conflict
+//hola
 }
 
 
