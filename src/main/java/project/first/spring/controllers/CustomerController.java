@@ -11,9 +11,11 @@ import project.first.spring.services.CustomerService;
 import java.util.List;
 import java.util.UUID;
 
+import static project.first.spring.Utils.Constants.CUSTOMER_PATH;
+
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/customer")
+@RequestMapping(CUSTOMER_PATH)
 public class CustomerController {
 
     private final CustomerService customerService;

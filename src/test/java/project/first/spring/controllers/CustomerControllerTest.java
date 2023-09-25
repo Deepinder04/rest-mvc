@@ -25,6 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static project.first.spring.Utils.Constants.CUSTOMER_PATH;
 
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
@@ -56,7 +57,7 @@ public class CustomerControllerTest {
         Map<String,Object> customerMap = new HashMap<>();
         customerMap.put("customerName","new name");
 
-        mockMvc.perform(patch("/api/v1/customer/"+ mockedCustomerDTO.getId())
+        mockMvc.perform(patch(CUSTOMER_PATH+ mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(customerMap))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -71,7 +72,7 @@ public class CustomerControllerTest {
     void testDeleteCustomer() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
 
-        mockMvc.perform(delete("/api/v1/customer/"+ mockedCustomerDTO.getId())
+        mockMvc.perform(delete(CUSTOMER_PATH+ mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -84,7 +85,7 @@ public class CustomerControllerTest {
     void testUpdateCustomer() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
 
-        mockMvc.perform(put("/api/v1/customer/"+ mockedCustomerDTO.getId())
+        mockMvc.perform(put(CUSTOMER_PATH+ mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockedCustomerDTO))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -99,7 +100,7 @@ public class CustomerControllerTest {
         mockedCustomerDTO.setVersion(null);
 
         given(customerService.saveCustomer(any(CustomerDTO.class))).willReturn(customerServiceImpl.customerList().get(1));
-        mockMvc.perform(post("/api/v1/customer")
+        mockMvc.perform(post(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockedCustomerDTO))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -112,7 +113,7 @@ public class CustomerControllerTest {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
         given(customerService.getById(mockedCustomerDTO.getId())).willReturn(mockedCustomerDTO);
 
-        mockMvc.perform(get("/api/v1/customer/"+ mockedCustomerDTO.getId()).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(CUSTOMER_PATH + mockedCustomerDTO.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.customerName",is(mockedCustomerDTO.getCustomerName())));
@@ -122,7 +123,7 @@ public class CustomerControllerTest {
     public void listCustomersTest() throws Exception {
         given(customerService.customerList()).willReturn(customerServiceImpl.customerList());
 
-        mockMvc.perform(get("/api/v1/customer").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(CUSTOMER_PATH).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()",is(3)));
