@@ -13,10 +13,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static project.first.spring.Utils.Constants.BEER_PATH;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/beer")
+@RequestMapping(BEER_PATH)
 public class BeerController {
     private final BeerService beerService;
 

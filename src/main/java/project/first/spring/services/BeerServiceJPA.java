@@ -3,6 +3,7 @@ package project.first.spring.services;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import project.first.spring.entities.Beer;
 import project.first.spring.mappers.BeerMapper;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.repositories.BeerRepository;
@@ -34,12 +35,12 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public BeerDTO saveBeer(BeerDTO beerDTO) {
-        return null;
+        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDTO)));
     }
 
     @Override
     public void updateById(UUID beerId, BeerDTO beerDTO) {
-
+        beerRepository.findById(beerId).orElse(null);
     }
 
     @Override
