@@ -27,6 +27,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static project.first.spring.Utils.Constants.BEER_PATH;
+import static project.first.spring.Utils.Constants.BEER_PATH_ID;
 
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
@@ -59,7 +60,7 @@ class BeerControllerTest {
         Map<String,Object> beerMap = new HashMap<>();
         beerMap.put("beerName","new name");
 
-        mockMvc.perform(patch(BEER_PATH+ mockedBeerDTO.getId())
+        mockMvc.perform(patch(BEER_PATH_ID, mockedBeerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(beerMap))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -76,7 +77,7 @@ class BeerControllerTest {
     void testDeleteBeer() throws Exception {
         BeerDTO mockedBeerDTO = beerServiceImpl.listBeers().get(0);
 
-        mockMvc.perform(delete(BEER_PATH+ mockedBeerDTO.getId())
+        mockMvc.perform(delete(BEER_PATH_ID, mockedBeerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -89,7 +90,7 @@ class BeerControllerTest {
     void testUpdateBeer() throws Exception {
         BeerDTO mockedBeerDTO = beerServiceImpl.listBeers().get(0);
 
-        mockMvc.perform(put(BEER_PATH+ mockedBeerDTO.getId())
+        mockMvc.perform(put(BEER_PATH_ID, mockedBeerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockedBeerDTO)))
@@ -129,7 +130,7 @@ class BeerControllerTest {
         BeerDTO mockBeerDTO = beerServiceImpl.listBeers().get(0);
         given(beerService.getById(mockBeerDTO.getId())).willReturn(Optional.of(mockBeerDTO));
 
-        mockMvc.perform(get(BEER_PATH+ mockBeerDTO.getId()).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(BEER_PATH_ID, mockBeerDTO.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id",is(mockBeerDTO.getId().toString())))

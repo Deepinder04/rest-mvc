@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static project.first.spring.Utils.Constants.CUSTOMER_PATH;
+import static project.first.spring.Utils.Constants.CUSTOMER_PATH_ID;
 
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
@@ -57,7 +58,7 @@ public class CustomerControllerTest {
         Map<String,Object> customerMap = new HashMap<>();
         customerMap.put("customerName","new name");
 
-        mockMvc.perform(patch(CUSTOMER_PATH+ mockedCustomerDTO.getId())
+        mockMvc.perform(patch(CUSTOMER_PATH_ID, mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(customerMap))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -72,7 +73,7 @@ public class CustomerControllerTest {
     void testDeleteCustomer() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
 
-        mockMvc.perform(delete(CUSTOMER_PATH+ mockedCustomerDTO.getId())
+        mockMvc.perform(delete(CUSTOMER_PATH_ID, mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
@@ -85,7 +86,7 @@ public class CustomerControllerTest {
     void testUpdateCustomer() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
 
-        mockMvc.perform(put(CUSTOMER_PATH+ mockedCustomerDTO.getId())
+        mockMvc.perform(put(CUSTOMER_PATH_ID, mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockedCustomerDTO))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -113,7 +114,7 @@ public class CustomerControllerTest {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
         given(customerService.getById(mockedCustomerDTO.getId())).willReturn(mockedCustomerDTO);
 
-        mockMvc.perform(get(CUSTOMER_PATH + mockedCustomerDTO.getId()).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(CUSTOMER_PATH_ID, mockedCustomerDTO.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.customerName",is(mockedCustomerDTO.getCustomerName())));
