@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.services.BeerService;
 
@@ -64,9 +65,8 @@ public class BeerController {
 
         log.debug("Get Beer by Id - in controller");
 
-        return beerService.getById(beerId);
+        return Optional.of(beerService.getById(beerId)).orElseThrow(NotFoundException::new);
     }
-//hola
 }
 
 

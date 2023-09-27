@@ -51,8 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getById(UUID id) {
-        return customerMap.get(id);
+    public Optional<CustomerDTO> getById(UUID id) {
+        return Optional.ofNullable(customerMap.get(id));
     }
 
     @Override

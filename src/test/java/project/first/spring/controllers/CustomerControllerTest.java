@@ -16,6 +16,7 @@ import project.first.spring.services.CustomerServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -112,7 +113,7 @@ public class CustomerControllerTest {
     @Test
     public void getCustomerByIdTest() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
-        given(customerService.getById(mockedCustomerDTO.getId())).willReturn(mockedCustomerDTO);
+        given(customerService.getById(mockedCustomerDTO.getId())).willReturn(Optional.of(mockedCustomerDTO));
 
         mockMvc.perform(get(CUSTOMER_PATH_ID, mockedCustomerDTO.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

@@ -3,13 +3,14 @@ package project.first.spring.services;
 import project.first.spring.model.CustomerDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerService {
 
     List<CustomerDTO> customerList();
 
-    CustomerDTO getById(UUID id);
+    Optional<CustomerDTO> getById(UUID id);
 
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
 

@@ -8,8 +8,10 @@ import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.services.BeerService;
 import project.first.spring.services.BeerServiceImpl;
@@ -122,6 +124,14 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()",is(3)));
+    }
+
+    @Test
+    void testNotFoundException() throws Exception {
+        given(beerService.getById(any(UUID.class))).willReturn(Optional.empty());
+
+        mockMvc.perform(get(BEER_PATH_ID, UUID.randomUUID()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

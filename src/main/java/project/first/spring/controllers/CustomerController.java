@@ -5,10 +5,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.CustomerDTO;
 import project.first.spring.services.CustomerService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static project.first.spring.Utils.Constants.CUSTOMER_PATH;
@@ -56,7 +58,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "{customerId}",method = RequestMethod.GET)
-    public CustomerDTO getById(@PathVariable("customerId")UUID customerId){
-        return customerService.getById(customerId);
+    public Optional<CustomerDTO> getById(@PathVariable("customerId")UUID customerId){
+        return Optional.of(customerService.getById(customerId)).orElseThrow(NotFoundException::new);
     }
 }

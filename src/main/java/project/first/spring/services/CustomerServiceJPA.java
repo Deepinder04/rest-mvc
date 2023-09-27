@@ -8,6 +8,7 @@ import project.first.spring.model.CustomerDTO;
 import project.first.spring.repositories.CustomerRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,8 +24,8 @@ public class CustomerServiceJPA implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getById(UUID id) {
-        return null;
+    public Optional<CustomerDTO> getById(UUID id) {
+        return Optional.empty();
     }
 
     @Override
