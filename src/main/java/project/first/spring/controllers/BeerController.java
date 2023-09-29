@@ -61,11 +61,11 @@ public class BeerController {
     }
 
     @RequestMapping(value = "{beerId}",method = RequestMethod.GET)
-    public Optional<BeerDTO> getBeerById(@PathVariable("beerId") UUID beerId){
+    public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId){
 
         log.debug("Get Beer by Id - in controller");
 
-        return Optional.of(beerService.getById(beerId)).orElseThrow(NotFoundException::new);
+        return beerService.getById(beerId).orElseThrow(NotFoundException::new);
     }
 }
 

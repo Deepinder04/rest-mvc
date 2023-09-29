@@ -126,6 +126,7 @@ class BeerControllerTest {
                 .andExpect(jsonPath("$.length()",is(3)));
     }
 
+    //TODO : getting 200 response code rather then 404 => assert fail
     @Test
     void testNotFoundException() throws Exception {
         given(beerService.getById(any(UUID.class))).willReturn(Optional.empty());
