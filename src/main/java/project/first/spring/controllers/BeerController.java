@@ -5,13 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.services.BeerService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static project.first.spring.Utils.Constants.BEER_PATH;
@@ -45,8 +45,8 @@ public class BeerController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping
-    public ResponseEntity handlePost(@RequestBody BeerDTO beerDTO){
+    @PostMapping        // check difference between @Valid and @Validated
+    public ResponseEntity handlePost(@Validated @RequestBody BeerDTO beerDTO){
         BeerDTO beerDTOSaved = beerService.saveBeer(beerDTO);
 
         HttpHeaders header = new HttpHeaders();

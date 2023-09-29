@@ -1,5 +1,6 @@
 package project.first.spring.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,17 @@ class BeerControllerTest {
         beerServiceImpl =new BeerServiceImpl();
     }
 
+    @Test
+    void testCreateBeerNullBeerName() throws Exception {
+        BeerDTO beerDTO = BeerDTO.builder().build();
+        given(beerService.saveBeer(any())).willReturn(beerServiceImpl.listBeers().get(0));
+
+        mockMvc.perform(post(BEER_PATH)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beerDTO)))
+                .andExpect(status().isBadRequest());
+    }
     @Test
     void testPatchBeer() throws Exception {
         BeerDTO mockedBeerDTO = beerServiceImpl.listBeers().get(0);
