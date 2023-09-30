@@ -3,6 +3,7 @@ package project.first.spring.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import project.first.spring.model.BeerStyle;
@@ -29,12 +30,15 @@ public class Beer {
     private Integer version;
 
     @NotEmpty
+    @Size(max = 50)
+    @Column(length = 50)
     private String beerName;
 
     @NotNull
     private BeerStyle beerStyle;
 
     @NotEmpty
+    @Size(max = 255)
     private String upc;
     private Integer quantityOnHand;
 

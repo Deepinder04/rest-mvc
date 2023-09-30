@@ -1,5 +1,6 @@
 package project.first.spring.repositories;
 
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,16 +20,14 @@ class BeerRepositoryTest {
 
     @Test
     void saveBeerTest(){
-
-       Beer beer = beerRepository.save(Beer.builder()
-               .beerName("cocaine beer")
-                       .beerStyle(BeerStyle.LAGER)
-                       .upc("don't know what upc is")
-                       .price(BigDecimal.valueOf(123))
-               .build());
-
-       beerRepository.flush();
-       assertThat(beer.getBeerName()).isNotNull();
-       assertThat(beer.getId()).isNotNull();
+        assertThrows(ConstraintViolationException.class, () -> {
+            Beer beer = beerRepository.save(Beer.builder()
+                    .beerName("cocaine beer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                    .beerStyle(BeerStyle.LAGER)
+                    .upc("don't know what upc is")
+                    .price(BigDecimal.valueOf(123))
+                    .build());
+            beerRepository.flush();
+        });
     }
 }
