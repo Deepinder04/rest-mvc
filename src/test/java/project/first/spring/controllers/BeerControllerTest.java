@@ -59,6 +59,22 @@ class BeerControllerTest {
     }
 
     @Test
+    void testUpdateBeerValidationFailure() throws Exception {
+        BeerDTO beerDTO = beerServiceImpl.listBeers().get(0);
+        beerDTO.setBeerName("");
+
+        MvcResult mvcResult = mockMvc.perform(put(BEER_PATH_ID,beerDTO.getId())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(beerDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()",is(1)))
+                .andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
     void testCreateBeerNullBeerName() throws Exception {
         BeerDTO beerDTO = BeerDTO.builder().build();
         given(beerService.saveBeer(any())).willReturn(beerServiceImpl.listBeers().get(0));
@@ -68,7 +84,7 @@ class BeerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(beerDTO)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.length()", is(2)))
+                .andExpect(jsonPath("$.length()", is(4)))
                 .andReturn();
 
         System.out.println(mvcResult.getResponse().getContentAsString());
@@ -89,7 +105,6 @@ class BeerControllerTest {
 
         assertThat(mockedBeerDTO.getId()).isEqualTo(uuidArgumentCaptor.getValue());
         assertThat(beerMap.get("beerName")).isEqualTo(beerArgumentCaptor.getValue().getBeerName());
-
     }
 
     @Test
@@ -101,7 +116,6 @@ class BeerControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(beerService).deleteById(uuidArgumentCaptor.capture());
-
         assertThat(mockedBeerDTO.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 
@@ -154,7 +168,6 @@ class BeerControllerTest {
 
     @Test
     public void getBeerByIdTest() throws Exception {
-
         BeerDTO mockBeerDTO = beerServiceImpl.listBeers().get(0);
         given(beerService.getById(mockBeerDTO.getId())).willReturn(Optional.of(mockBeerDTO));
 
@@ -163,6 +176,5 @@ class BeerControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id",is(mockBeerDTO.getId().toString())))
                 .andExpect(jsonPath("$.beerName",is(mockBeerDTO.getBeerName())));
-
     }
 }
