@@ -55,12 +55,12 @@ public class BeerController {
         return new ResponseEntity(header,HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<BeerDTO> listBeers(){
         return beerService.listBeers();
     }
 
-    @RequestMapping(value = "{beerId}",method = RequestMethod.GET)
+    @GetMapping(value = "{beerId}")
     public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId){
 
         log.debug("Get Beer by Id - in controller");

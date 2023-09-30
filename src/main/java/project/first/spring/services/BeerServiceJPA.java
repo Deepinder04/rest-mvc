@@ -3,6 +3,7 @@ package project.first.spring.services;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.entities.Beer;
 import project.first.spring.mappers.BeerMapper;
@@ -61,6 +62,24 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public void updatePatchById(UUID beerId, BeerDTO beerDTO) {
-
+        beerRepository.findById(beerId).ifPresentOrElse(foundBeer -> {
+            if (StringUtils.hasText(beerDTO.getBeerName())){
+                foundBeer.setBeerName(beerDTO.getBeerName());
+            }
+            if (beerDTO.getBeerStyle() != null){
+                foundBeer.setBeerStyle(beerDTO.getBeerStyle());
+            }
+            if (StringUtils.hasText(beerDTO.getUpc())){
+                foundBeer.setUpc(beerDTO.getUpc());
+            }
+            if (beerDTO.getPrice() != null){
+                foundBeer.setPrice(beerDTO.getPrice());
+            }
+            if (beerDTO.getQuantityOnHand() != null){
+                foundBeer.setQuantityOnHand(beerDTO.getQuantityOnHand());
+            }
+            beerRepository.save(beerMapper.beerDtoToBeer(beerDTO));
+        }, NotFoundException::new);
     }
+
 }
