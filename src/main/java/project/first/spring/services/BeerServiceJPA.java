@@ -52,9 +52,13 @@ public class BeerServiceJPA implements BeerService {
     }
 
     @Override
-    public void deleteById(UUID beerId) {
-        beerRepository.findById(beerId)
-                .ifPresentOrElse(beer -> beerRepository.deleteById(beer.getId()), NotFoundException::new);
+    public boolean deleteById(UUID beerId) {
+        if (beerRepository.findById(beerId).isPresent()){
+            beerRepository.deleteById(beerId);
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override

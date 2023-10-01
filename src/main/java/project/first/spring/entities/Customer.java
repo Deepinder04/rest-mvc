@@ -11,6 +11,7 @@ import org.hibernate.type.SqlTypes;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@ToString
 @Builder
 @Getter
 @Setter
@@ -30,6 +31,8 @@ public class Customer {
     @Size(max = 50)
     @Column(length = 50)
     private String customerName;
+
+    @NotEmpty
     private String email;
 
     @Version

@@ -68,18 +68,21 @@ public class BootstrapData implements CommandLineRunner {
     void loadCustomerData(){
         Customer c1 = Customer.builder()
                 .customerName("deep")
+                .email("deepinder.sidhu@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
                 .build();
 
         Customer c2 = Customer.builder()
                 .customerName("vinay")
+                .email("vinay.patanjali@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
                 .build();
 
         Customer c3 = Customer.builder()
                 .customerName("ajay")
+                .email("ajay.kumar@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
                 .build();

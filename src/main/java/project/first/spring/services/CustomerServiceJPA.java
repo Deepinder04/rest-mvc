@@ -23,7 +23,6 @@ public class CustomerServiceJPA implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
-    private final BeerRepository beerRepository;
 
     @Override
     public List<CustomerDTO> customerList() {
@@ -54,9 +53,13 @@ public class CustomerServiceJPA implements CustomerService {
     }
 
     @Override
-    public void deleteById(UUID customerId) {
-        customerRepository.findById(customerId)
-                .ifPresentOrElse(customer -> beerRepository.deleteById(customer.getId()), NotFoundException::new);
+    public boolean deleteById(UUID customerId) {
+        if(customerRepository.findById(customerId).isPresent()){
+            customerRepository.deleteById(customerId);
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override
