@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.CustomerDTO;
@@ -43,7 +44,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity addCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity addCustomer(@Validated @RequestBody CustomerDTO customerDTO){
         CustomerDTO savedCustomerDTO = customerService.saveCustomer(customerDTO);
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,13 +53,13 @@ public class CustomerController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<CustomerDTO> listCustomers(){
         return customerService.customerList();
     }
 
-    @RequestMapping(value = "{customerId}",method = RequestMethod.GET)
-    public Optional<CustomerDTO> getById(@PathVariable("customerId")UUID customerId){
-        return Optional.of(customerService.getById(customerId)).orElseThrow(NotFoundException::new);
+    @GetMapping(value = "{customerId}")
+    public CustomerDTO getById(@PathVariable("customerId")UUID customerId){
+        return customerService.getById(customerId).orElseThrow(NotFoundException::new);
     }
 }

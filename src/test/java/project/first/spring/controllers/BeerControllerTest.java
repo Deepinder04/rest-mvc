@@ -1,6 +1,5 @@
 package project.first.spring.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,11 +8,9 @@ import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.services.BeerService;
 import project.first.spring.services.BeerServiceImpl;
@@ -157,7 +154,6 @@ class BeerControllerTest {
                 .andExpect(jsonPath("$.length()",is(3)));
     }
 
-    //TODO : getting 200 response code rather then 404 => assert fail
     @Test
     void testNotFoundException() throws Exception {
         given(beerService.getById(any(UUID.class))).willReturn(Optional.empty());
