@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import project.first.spring.model.CustomerDTO;
 import project.first.spring.services.CustomerService;
 import project.first.spring.services.CustomerServiceImpl;
@@ -37,6 +38,7 @@ public class CustomerControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
     @MockBean
     CustomerService customerService;
 
@@ -51,6 +53,21 @@ public class CustomerControllerTest {
     @BeforeEach
     void setUp(){
         customerServiceImpl = new CustomerServiceImpl();
+    }
+
+    @Test
+    void testCreateCustomerEmptyCustomerName() throws Exception {
+        CustomerDTO customer = customerServiceImpl.customerList().get(0);
+        customer.setCustomerName("");
+
+        MvcResult mvcResult = mockMvc.perform(post(CUSTOMER_PATH).accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(customer)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()",is(1)))
+                .andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test
@@ -131,5 +148,11 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.length()",is(3)));
     }
 
+    @Test
+    void testNotFoundException() throws Exception {
+        given(customerService.getById(any(UUID.class))).willReturn(Optional.empty());
 
+        mockMvc.perform(get(CUSTOMER_PATH_ID, UUID.randomUUID()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

@@ -8,6 +8,7 @@ import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.entities.Customer;
 import project.first.spring.mappers.CustomerMapper;
 import project.first.spring.model.CustomerDTO;
+import project.first.spring.repositories.BeerRepository;
 import project.first.spring.repositories.CustomerRepository;
 
 import java.util.List;
@@ -22,14 +23,20 @@ public class CustomerServiceJPA implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final BeerRepository beerRepository;
+
     @Override
     public List<CustomerDTO> customerList() {
-        return customerRepository.findAll().stream().map(customerMapper::customerToCustomerDTO).collect(Collectors.toList());
+        return customerRepository.findAll()
+                .stream().map(customerMapper::customerToCustomerDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<CustomerDTO> getById(UUID id) {
-        return Optional.of(customerRepository.findById(id).map(customerMapper::customerToCustomerDTO)).orElse(null);
+        return Optional.of(customerRepository.findById(id)
+                .map(customerMapper::customerToCustomerDTO))
+                .orElse(null);
     }
 
     @Override
@@ -40,7 +47,6 @@ public class CustomerServiceJPA implements CustomerService {
     @Override
     public void updateById(UUID customerId, CustomerDTO customerDTO) {
         // read about AtomicReference
-
         customerRepository.findById(customerId).ifPresentOrElse(foundCustomer -> {
             foundCustomer.setCustomerName(customerDTO.getCustomerName());
             customerRepository.save(foundCustomer);
@@ -49,10 +55,8 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public void deleteById(UUID customerId) {
-        if(customerRepository.findById(customerId).isEmpty())
-            throw new NotFoundException();
-
-        customerRepository.deleteById(customerId);
+        customerRepository.findById(customerId)
+                .ifPresentOrElse(customer -> beerRepository.deleteById(customer.getId()), NotFoundException::new);
     }
 
     @Override
