@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import project.first.spring.Exceptions.NotFoundException;
-import project.first.spring.entities.Beer;
 import project.first.spring.mappers.BeerMapper;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.repositories.BeerRepository;
@@ -54,10 +53,8 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public void deleteById(UUID beerId) {
-        if(beerRepository.findById(beerId).isEmpty())
-            throw new NotFoundException();
-
-        beerRepository.deleteById(beerId);
+        beerRepository.findById(beerId)
+                .ifPresentOrElse(beer -> beerRepository.deleteById(beer.getId()), NotFoundException::new);
     }
 
     @Override
