@@ -28,7 +28,7 @@ public class BeerServiceJPA implements BeerService {
         List<Beer> beerList;
         
         if (StringUtils.hasText(beerName)){
-            return listBeersByName(beerName);
+             beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();
         }
@@ -38,8 +38,8 @@ public class BeerServiceJPA implements BeerService {
                 .collect(Collectors.toList());
     }
 
-    private List<BeerDTO> listBeersByName(String beerName) {
-        return new ArrayList<>();
+    private List<Beer> listBeersByName(String beerName) {
+        return beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%");
     }
 
     @Override
