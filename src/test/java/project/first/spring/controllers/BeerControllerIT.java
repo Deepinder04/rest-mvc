@@ -25,10 +25,13 @@ import project.first.spring.services.BeerService;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static project.first.spring.Utils.Constants.BEER_PATH;
 import static project.first.spring.Utils.Constants.BEER_PATH_ID;
 
 
@@ -61,6 +64,14 @@ class BeerControllerIT {
     }
 
     @Test
+    void testFindByBeerName() throws Exception {
+        mockMvc.perform(get(BEER_PATH)
+                .queryParam("beerName","IPA"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()",is(100)));
+    }
+
+    @Test
     void testPatchBeerBadName() throws Exception {
         Beer beer = beerRepository.findAll().get(0);
         Map<String,Object> beerMap = new HashMap<>();
@@ -71,7 +82,7 @@ class BeerControllerIT {
                         .content(objectMapper.writeValueAsString(beerMap))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.length()", Is.is(4)))
+                .andExpect(jsonPath("$.length()", is(4)))
                 .andReturn();
 
         System.out.println(mvcResult.getResponse().getContentAsString());
