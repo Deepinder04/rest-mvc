@@ -51,6 +51,10 @@ public class Beer {
 
     @NotNull
     private BigDecimal price;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

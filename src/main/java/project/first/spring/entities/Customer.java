@@ -31,12 +31,14 @@ public class Customer {
     @Size(max = 50)
     @Column(length = 50)
     private String customerName;
-
-    @NotEmpty
     private String email;
 
     @Version
     private Integer version;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
     private LocalDateTime lastModifiedDate;
 }

@@ -59,6 +59,7 @@ public class CustomerControllerTest {
     void testCreateCustomerEmptyCustomerName() throws Exception {
         CustomerDTO customer = customerServiceImpl.customerList().get(0);
         customer.setCustomerName("");
+        customer.setEmail("deepinder.sidhu@mobikwik.com");
 
         MvcResult mvcResult = mockMvc.perform(post(CUSTOMER_PATH).accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,6 +91,7 @@ public class CustomerControllerTest {
     @Test
     void testDeleteCustomer() throws Exception {
         CustomerDTO mockedCustomerDTO = customerServiceImpl.customerList().get(0);
+        given(customerService.deleteById(mockedCustomerDTO.getId())).willReturn(true);
 
         mockMvc.perform(delete(CUSTOMER_PATH_ID, mockedCustomerDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))

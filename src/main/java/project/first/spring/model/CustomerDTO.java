@@ -18,8 +18,6 @@ public class CustomerDTO {
     @Size(max = 50)
     @Column(length = 50)
     private String customerName;
-
-    @NotEmpty
     private String email;
     private Integer version;
     private LocalDateTime createdAt;

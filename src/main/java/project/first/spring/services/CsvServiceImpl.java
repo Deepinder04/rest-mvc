@@ -1,6 +1,7 @@
 package project.first.spring.services;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.stereotype.Service;
 import project.first.spring.model.BeerCSVRecord;
 
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
+@Service
 public class CsvServiceImpl implements CsvService {
     @Override
     public List<BeerCSVRecord> convertCSV(File csvFile) {

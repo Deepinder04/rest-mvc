@@ -69,7 +69,6 @@ public class CustomerControllerIT {
         Customer customer = customerRepository.findAll().get(0);
         HashMap<String, String> customerMap = new HashMap<>();
         customerMap.put("customerName", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        customerMap.put("email", "deepinder.sidhu@mobikwik.com");
 
         MvcResult mvcResult = mockMvc.perform(patch(CUSTOMER_PATH_ID, customer.getId()).accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerMap))

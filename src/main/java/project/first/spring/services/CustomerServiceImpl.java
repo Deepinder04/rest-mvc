@@ -18,6 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO c1 = CustomerDTO.builder()
                 .customerName("deep")
+                .email("deepinder.sidhu@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
                 .createdAt(LocalDateTime.now())
@@ -26,6 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO c2 = CustomerDTO.builder()
                 .customerName("vinay")
+                .email("vinay.patanjali@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
                 .createdAt(LocalDateTime.now())
@@ -34,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO c3 = CustomerDTO.builder()
                 .customerName("ajay")
+                .email("ajay.kumar@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
                 .createdAt(LocalDateTime.now())

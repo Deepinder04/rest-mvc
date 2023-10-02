@@ -145,7 +145,7 @@ class BeerControllerIT {
     @Test
     void testGetBeerListFromDb(){
         List<BeerDTO> dtos = beerService.listBeers();
-        assertThat(dtos.size()).isEqualTo(3);
+        assertThat(dtos.size()).isEqualTo(2413);
     }
 
     @Rollback
