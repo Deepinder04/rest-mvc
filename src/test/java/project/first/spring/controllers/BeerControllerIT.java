@@ -2,7 +2,6 @@ package project.first.spring.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,7 +154,7 @@ class BeerControllerIT {
 
     @Test
     void testGetBeerListFromDb(){
-        List<BeerDTO> dtos = beerService.listBeers();
+        List<BeerDTO> dtos = beerService.listBeers(null);
         assertThat(dtos.size()).isEqualTo(2413);
     }
 
@@ -164,7 +163,7 @@ class BeerControllerIT {
     @Test
     void testNoEntriesPresent(){
         beerRepository.deleteAll();
-        List<BeerDTO> dtos = beerService.listBeers();
+        List<BeerDTO> dtos = beerService.listBeers(null);
         assertThat(dtos.size()).isEqualTo(0);
     }
 }
