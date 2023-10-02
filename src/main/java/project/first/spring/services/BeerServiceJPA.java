@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import project.first.spring.Exceptions.NotFoundException;
+import project.first.spring.entities.Beer;
 import project.first.spring.mappers.BeerMapper;
 import project.first.spring.model.BeerDTO;
 import project.first.spring.repositories.BeerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,9 +25,21 @@ public class BeerServiceJPA implements BeerService {
     private final BeerMapper beerMapper;
     @Override
     public List<BeerDTO> listBeers(String beerName) {
-        return beerRepository.findAll().stream()
+        List<Beer> beerList;
+        
+        if (StringUtils.hasText(beerName)){
+            return listBeersByName(beerName);
+        } else {
+            beerList = beerRepository.findAll();
+        }
+        
+        return beerList.stream()
                 .map(beerMapper::beerToBeerDto)
                 .collect(Collectors.toList());
+    }
+
+    private List<BeerDTO> listBeersByName(String beerName) {
+        return new ArrayList<>();
     }
 
     @Override
