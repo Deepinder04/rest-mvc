@@ -12,6 +12,7 @@ import project.first.spring.model.BeerStyle;
 import project.first.spring.repositories.BeerRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class BeerServiceJPA implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
     @Override
-    public List<BeerDTO> listBeers(String beerName, String beerStyle) {
+    public List<BeerDTO> listBeers(String beerName, String beerStyle, Boolean showInventory) {
         List<Beer> beerList;
 
         if (StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)){
@@ -37,6 +38,10 @@ public class BeerServiceJPA implements BeerService {
             beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();
+        }
+
+        if (Objects.nonNull(showInventory) && !showInventory){
+            beerList.forEach(beer -> beer.setQuantityOnHand(null));
         }
 
         return beerList.stream()

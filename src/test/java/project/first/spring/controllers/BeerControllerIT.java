@@ -2,6 +2,7 @@ package project.first.spring.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,28 @@ class BeerControllerIT {
     @BeforeEach
     void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
+
+    @Test
+    void testBeerByNameAndStyleAndShowInventoryTrue() throws Exception {
+        mockMvc.perform(get(BEER_PATH)
+                        .queryParam("beerName", "IPA")
+                        .queryParam("beerStyle", "ALE")
+                        .queryParam("showInventory","true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()",is(11)))
+                .andExpect(jsonPath("$.[0].quantityOnHand").value(IsNull.notNullValue()));
+    }
+
+    @Test
+    void testBeerByNameAndStyleAndShowInventoryFalse() throws Exception {
+        mockMvc.perform(get(BEER_PATH)
+                        .queryParam("beerName", "IPA")
+                        .queryParam("beerStyle", "ALE")
+                        .queryParam("showInventory","false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()",is(11)))
+                .andExpect(jsonPath("$.[0].quantityOnHand").value(IsNull.nullValue()));
     }
 
     @Test
@@ -163,7 +186,7 @@ class BeerControllerIT {
 
     @Test
     void testGetBeerListFromDb(){
-        List<BeerDTO> dtos = beerService.listBeers(null, null);
+        List<BeerDTO> dtos = beerService.listBeers(null, null, false);
         assertThat(dtos.size()).isEqualTo(2413);
     }
 
@@ -172,7 +195,7 @@ class BeerControllerIT {
     @Test
     void testNoEntriesPresent(){
         beerRepository.deleteAll();
-        List<BeerDTO> dtos = beerService.listBeers(null, null);
+        List<BeerDTO> dtos = beerService.listBeers(null, null, false);
         assertThat(dtos.size()).isEqualTo(0);
     }
 }
