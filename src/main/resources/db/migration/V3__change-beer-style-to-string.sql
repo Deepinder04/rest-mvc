@@ -1,0 +1,1 @@
+ALTER TABLE beer modify beer_style VARCHAR(255) NOT NULL ;

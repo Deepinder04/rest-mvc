@@ -63,6 +63,15 @@ class BeerControllerIT {
     }
 
     @Test
+    void testFindBeerByNameAndStyle() throws Exception {
+        mockMvc.perform(get(BEER_PATH)
+                .queryParam("beerName", "IPA")
+                .queryParam("beerStyle", "ALE"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()",is(11)));
+    }
+
+    @Test
     void testFindByBeerName() throws Exception {
         mockMvc.perform(get(BEER_PATH)
                 .queryParam("beerName","IPA"))
@@ -154,7 +163,7 @@ class BeerControllerIT {
 
     @Test
     void testGetBeerListFromDb(){
-        List<BeerDTO> dtos = beerService.listBeers(null);
+        List<BeerDTO> dtos = beerService.listBeers(null, null);
         assertThat(dtos.size()).isEqualTo(2413);
     }
 
@@ -163,7 +172,7 @@ class BeerControllerIT {
     @Test
     void testNoEntriesPresent(){
         beerRepository.deleteAll();
-        List<BeerDTO> dtos = beerService.listBeers(null);
+        List<BeerDTO> dtos = beerService.listBeers(null, null);
         assertThat(dtos.size()).isEqualTo(0);
     }
 }

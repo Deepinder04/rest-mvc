@@ -42,6 +42,7 @@ public class Beer {
     private String beerName;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BeerStyle beerStyle;
 
     @NotEmpty

@@ -8,9 +8,9 @@ import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.entities.Beer;
 import project.first.spring.mappers.BeerMapper;
 import project.first.spring.model.BeerDTO;
+import project.first.spring.model.BeerStyle;
 import project.first.spring.repositories.BeerRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,22 +24,36 @@ public class BeerServiceJPA implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
     @Override
-    public List<BeerDTO> listBeers(String beerName) {
+    public List<BeerDTO> listBeers(String beerName, String beerStyle) {
         List<Beer> beerList;
-        
-        if (StringUtils.hasText(beerName)){
-             beerList = listBeersByName(beerName);
+
+        if (StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)){
+             beerList = listBeersByNameAndStyle(beerName,beerStyle);
+        }
+        else if (StringUtils.hasText(beerStyle)){
+            beerList = listBeersByStyle(beerStyle);
+        }
+        else if (StringUtils.hasText(beerName)) {
+            beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();
         }
-        
+
         return beerList.stream()
                 .map(beerMapper::beerToBeerDto)
                 .collect(Collectors.toList());
     }
 
     private List<Beer> listBeersByName(String beerName) {
-        return beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%");
+        return beerRepository.findByBeerNameIsLikeIgnoreCase("%" + beerName + "%");
+    }
+
+    private List<Beer> listBeersByStyle(String beerStyle) {
+        return beerRepository.findByBeerStyle(BeerStyle.valueOf(beerStyle));
+    }
+
+    private List<Beer> listBeersByNameAndStyle(String beerName, String beerStyle) {
+        return beerRepository.findByBeerNameLikeAndBeerStyleAllIgnoreCase("%" + beerName + "%", BeerStyle.valueOf(beerStyle));
     }
 
     @Override
