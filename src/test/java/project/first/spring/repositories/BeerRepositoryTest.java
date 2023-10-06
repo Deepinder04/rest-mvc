@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import project.first.spring.bootstrap.BootstrapData;
 import project.first.spring.entities.Beer;
 import project.first.spring.model.BeerStyle;
@@ -25,20 +27,20 @@ class BeerRepositoryTest {
 
     @Test
     void testGetBeerListByName(){
-        List<Beer> beerList = beerRepository.findByBeerNameIsLikeIgnoreCase("%IPA%");
-        assertThat(beerList.size()).isEqualTo(336);
+        Page<Beer> beerList = beerRepository.findByBeerNameIsLikeIgnoreCase("%IPA%", Pageable.ofSize(800));
+        assertThat(beerList.getContent().size()).isEqualTo(336);
     }
 
     @Test
     void testGetBeerListByStyle(){
-        List<Beer> beerList = beerRepository.findByBeerStyle(BeerStyle.ALE);
-        assertThat(beerList.size()).isEqualTo(400);
+        Page<Beer> beerList = beerRepository.findByBeerStyle(BeerStyle.ALE, Pageable.ofSize(800));
+        assertThat(beerList.getContent().size()).isEqualTo(400);
     }
 
     @Test
     void testGetBeerByNameAndStyle(){
-        List<Beer> beerList = beerRepository.findByBeerNameLikeAndBeerStyleAllIgnoreCase("%IPA%", BeerStyle.valueOf("ALE"));
-        assertThat(beerList.size()).isEqualTo(11);
+        Page<Beer> beerList = beerRepository.findByBeerNameLikeAndBeerStyleAllIgnoreCase("%IPA%", BeerStyle.valueOf("ALE"), null);
+        assertThat(beerList.getContent().size()).isEqualTo(11);
     }
 
     @Test

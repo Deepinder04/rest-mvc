@@ -6,4 +6,6 @@ public class Constants {
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
     public static final String CUSTOMER_PATH = "/api/v1/customer";
     public static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{customerId}";
+    public static final Integer DEFAULT_PAGE = 0;
+    public static final Integer DEFAULT_PAGE_SIZE = 25;
 }

@@ -1,13 +1,15 @@
 package project.first.spring.services;
 
+import org.springframework.data.domain.Page;
 import project.first.spring.model.BeerDTO;
-import java.util.List;
+import project.first.spring.model.BeerStyle;
+
 import java.util.Optional;
 import java.util.UUID;
 
 public interface BeerService {
 
-    List<BeerDTO> listBeers(String beerName, String beerStyle, Boolean showInventory);
+    Page<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize);
 
     Optional<BeerDTO> getById(UUID id);
 

@@ -2,6 +2,7 @@ package project.first.spring.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +10,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.model.BeerDTO;
+import project.first.spring.model.BeerStyle;
 import project.first.spring.services.BeerService;
 
-import java.util.List;
 import java.util.UUID;
 
 import static project.first.spring.Utils.Constants.BEER_PATH;
@@ -55,9 +56,12 @@ public class BeerController {
     }
 
     @GetMapping
-    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName, @RequestParam(required = false) String beerStyle,
-                                   @RequestParam(required = false) boolean showInventory){
-        return beerService.listBeers(beerName, beerStyle, showInventory);
+    public Page<BeerDTO> listBeers(@RequestParam(required = false) String beerName,
+                                   @RequestParam(required = false) BeerStyle beerStyle,
+                                   @RequestParam(required = false) boolean showInventory,
+                                   @RequestParam(required = false) Integer pageNumber,
+                                   @RequestParam(required = false) Integer pageSize){
+        return beerService.listBeers(beerName, beerStyle, showInventory, pageNumber, pageSize);
     }
 
     @GetMapping(value = "{beerId}")
