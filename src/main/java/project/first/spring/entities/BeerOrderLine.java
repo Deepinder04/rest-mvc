@@ -1,16 +1,13 @@
 package project.first.spring.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
-
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -18,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerOrder {
+public class BeerOrderLine {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -27,22 +24,20 @@ public class BeerOrder {
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private String id;
 
-    @NotEmpty
-    private String customerRef;
-
     @CreationTimestamp
-    @Column(updatable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+    private int orderQuantity;
+    private int quantityAllocated;
 
     @Version
     private Long version;
 
     @ManyToOne
-    private Customer customer;
+    private BeerOrder beerOrder;
 
-    @OneToMany(mappedBy = "beerOrder")
-    private Set<BeerOrderLine> beerOrderLines;
+    @ManyToOne
+    private Beer beer;
 }

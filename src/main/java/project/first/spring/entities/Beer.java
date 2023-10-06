@@ -16,6 +16,7 @@ import project.first.spring.model.BeerStyle;
 import java.math.BigDecimal;
 import java.sql.SQLType;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -58,4 +59,7 @@ public class Beer {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "beer")
+    private Set<BeerOrderLine> beerOrderLines;
 }
