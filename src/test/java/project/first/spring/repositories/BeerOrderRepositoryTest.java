@@ -39,7 +39,7 @@ class BeerOrderRepositoryTest {
                 .customer(customer)
                 .build();
 
-        BeerOrder savedBeerOrder = beerOrderRepository.saveAndFlush(beerOrder);
+        BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
         System.out.println(savedBeerOrder.getCustomer().getCustomerName());
     }
 }

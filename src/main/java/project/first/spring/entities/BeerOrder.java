@@ -16,9 +16,18 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class BeerOrder {
+
+    public BeerOrder(String id, String customerRef, Timestamp createdAt, Timestamp updatedAt, Long version, Customer customer, Set<BeerOrderLine> beerOrderLines) {
+        this.id = id;
+        this.customerRef = customerRef;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.version = version;
+        this.setCustomer(customer);
+        this.beerOrderLines = beerOrderLines;
+    }
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -39,6 +48,11 @@ public class BeerOrder {
 
     @Version
     private Long version;
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.getBeerOrders().add(this);
+    }
 
     @ManyToOne
     private Customer customer;
