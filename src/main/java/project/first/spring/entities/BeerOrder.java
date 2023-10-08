@@ -19,7 +19,7 @@ import java.util.Set;
 @Builder
 public class BeerOrder {
 
-    public BeerOrder(String id, String customerRef, Timestamp createdAt, Timestamp updatedAt, Long version, Customer customer, Set<BeerOrderLine> beerOrderLines) {
+    public BeerOrder(String id, String customerRef, Timestamp createdAt, Timestamp updatedAt, Long version, Customer customer, Set<BeerOrderLine> beerOrderLines, BeerOrderShipment beerOrderShipment) {
         this.id = id;
         this.customerRef = customerRef;
         this.createdAt = createdAt;
@@ -27,6 +27,7 @@ public class BeerOrder {
         this.version = version;
         this.setCustomer(customer);
         this.beerOrderLines = beerOrderLines;
+        this.setBeerOrderShipment(beerOrderShipment);
     }
 
     @Id
@@ -54,9 +55,17 @@ public class BeerOrder {
         customer.getBeerOrders().add(this);
     }
 
+    public void setBeerOrderShipment(BeerOrderShipment beerOrderShipment){
+        this.beerOrderShipment = beerOrderShipment;
+        beerOrderShipment.setBeerOrder(this);
+    }
+
     @ManyToOne
     private Customer customer;
 
     @OneToMany(mappedBy = "beerOrder")
     private Set<BeerOrderLine> beerOrderLines;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private BeerOrderShipment beerOrderShipment;
 }

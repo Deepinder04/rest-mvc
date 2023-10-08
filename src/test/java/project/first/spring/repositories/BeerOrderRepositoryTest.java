@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.first.spring.entities.Beer;
 import project.first.spring.entities.BeerOrder;
+import project.first.spring.entities.BeerOrderShipment;
 import project.first.spring.entities.Customer;
 
 @SpringBootTest
@@ -36,6 +37,8 @@ class BeerOrderRepositoryTest {
     void testBeerOrderRepository(){
         BeerOrder beerOrder = BeerOrder.builder()
                 .customerRef("test customer")
+                .beerOrderShipment(BeerOrderShipment.builder()
+                        .trackingNumber("1234-ab23").build())
                 .customer(customer)
                 .build();
 
