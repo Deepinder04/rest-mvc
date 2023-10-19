@@ -8,4 +8,6 @@ public class Constants {
     public static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{customerId}";
     public static final Integer DEFAULT_PAGE = 0;
     public static final Integer DEFAULT_PAGE_SIZE = 25;
+    public static final String USER_NAME = "user";
+    public static final String USER_PASSWORD = "password";
 }
