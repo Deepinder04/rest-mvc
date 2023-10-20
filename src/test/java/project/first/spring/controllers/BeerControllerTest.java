@@ -59,6 +59,19 @@ class BeerControllerTest {
     }
 
     @Test
+    void testInvalidAuthenticationUsed() throws Exception {
+        BeerDTO beerDTO = beerServiceImpl.listBeers(null, null, false, 1, 25).getContent().get(0);
+
+        mockMvc.perform(put(BEER_PATH_ID,beerDTO.getId())
+                        .with(httpBasic("Invalid user","Invalid password"))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beerDTO)))
+                .andExpect(status().isUnauthorized());
+
+    }
+
+    @Test
     void testUpdateBeerValidationFailure() throws Exception {
         BeerDTO beerDTO = beerServiceImpl.listBeers(null, null, false, 1, 25).getContent().get(0);
         beerDTO.setBeerName("");
