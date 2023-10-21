@@ -29,12 +29,12 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static project.first.spring.Utils.Constants.*;
+import static project.first.spring.controllers.BeerControllerTest.jwtRequestPostProcessor;
 
 @SpringBootTest
 public class CustomerControllerIT {
@@ -75,7 +75,7 @@ public class CustomerControllerIT {
         customerMap.put("customerName", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         MvcResult mvcResult = mockMvc.perform(patch(CUSTOMER_PATH_ID, customer.getId())
-                        .with(httpBasic(USER_NAME,USER_PASSWORD))
+                        .with(jwtRequestPostProcessor)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerMap))
                         .contentType(MediaType.APPLICATION_JSON))
