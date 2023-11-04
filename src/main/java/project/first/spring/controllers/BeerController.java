@@ -27,7 +27,7 @@ public class BeerController {
     @PatchMapping("{beerId}")
     public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId,@RequestBody BeerDTO beerDTO){
         beerService.updatePatchById(beerId, beerDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("{beerId}")
@@ -35,14 +35,14 @@ public class BeerController {
         if(!beerService.deleteById(beerId)){
             throw new NotFoundException();
         }
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
     @PutMapping("{beerId}")
     public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId,@Validated @RequestBody BeerDTO beerDTO){
         beerService.updateById(beerId, beerDTO);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping        // check difference between @Valid and @Validated
@@ -52,7 +52,7 @@ public class BeerController {
         HttpHeaders header = new HttpHeaders();
         header.add("Location","/api/v1/beer/"+ beerDTOSaved.getId().toString());
 
-        return new ResponseEntity(header,HttpStatus.CREATED);
+        return new ResponseEntity<>(header,HttpStatus.CREATED);
     }
 
     @GetMapping
