@@ -10,7 +10,7 @@ import project.first.spring.Utilities.enums.ConfigType;
 import java.time.LocalDateTime;
 
 @Table(name = "config")
-@Entity(name = "config")
+@Entity(name = "Config")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,7 +21,7 @@ public class Config {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
