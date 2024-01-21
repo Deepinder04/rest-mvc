@@ -61,7 +61,7 @@ public class CustomerControllerTest {
     @Test
     void testCreateCustomerEmptyCustomerName() throws Exception {
         CustomerDTO customer = customerServiceImpl.customerList().get(0);
-        customer.setCustomerName("");
+        customer.setUsername("");
         customer.setEmail("deepinder.sidhu@mobikwik.com");
 
         MvcResult mvcResult = mockMvc.perform(post(CUSTOMER_PATH)
@@ -91,7 +91,7 @@ public class CustomerControllerTest {
 
         verify(customerService).patchCustomerById(uuidArgumentCaptor.capture(),customerArgumentCaptor.capture());
         assertThat(mockedCustomerDTO.getId()).isEqualTo(uuidArgumentCaptor.getValue());
-        assertThat(customerMap.get("customerName")).isEqualTo(customerArgumentCaptor.getValue().getCustomerName());
+        assertThat(customerMap.get("customerName")).isEqualTo(customerArgumentCaptor.getValue().getUsername());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class CustomerControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.customerName",is(mockedCustomerDTO.getCustomerName())));
+                .andExpect(jsonPath("$.customerName",is(mockedCustomerDTO.getUsername())));
     }
 
     @Test

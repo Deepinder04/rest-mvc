@@ -8,7 +8,6 @@ import project.first.spring.Exceptions.NotFoundException;
 import project.first.spring.entities.Customer;
 import project.first.spring.mappers.CustomerMapper;
 import project.first.spring.model.CustomerDTO;
-import project.first.spring.repositories.BeerRepository;
 import project.first.spring.repositories.CustomerRepository;
 
 import java.util.List;
@@ -47,7 +46,7 @@ public class CustomerServiceJPA implements CustomerService {
     public void updateById(UUID customerId, CustomerDTO customerDTO) {
         // read about AtomicReference
         customerRepository.findById(customerId).ifPresentOrElse(foundCustomer -> {
-            foundCustomer.setCustomerName(customerDTO.getCustomerName());
+            foundCustomer.setUsername(customerDTO.getUsername());
             customerRepository.save(foundCustomer);
         },NotFoundException::new);
     }
@@ -65,8 +64,8 @@ public class CustomerServiceJPA implements CustomerService {
     @Override
     public void patchCustomerById(UUID customerId, CustomerDTO customerDTO) {
         Customer customer = customerRepository.findById(customerId).orElseThrow(NotFoundException::new);
-        if(StringUtils.hasText(customerDTO.getCustomerName()))
-            customer.setCustomerName(customerDTO.getCustomerName());
+        if(StringUtils.hasText(customerDTO.getUsername()))
+            customer.setUsername(customerDTO.getUsername());
         customerRepository.save(customer);
     }
 }

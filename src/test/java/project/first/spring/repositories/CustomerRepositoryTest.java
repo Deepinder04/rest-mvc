@@ -20,7 +20,7 @@ class CustomerRepositoryTest {
     void saveCustomerTest(){
         assertThrows(ConstraintViolationException.class, () -> {
             Customer customer = customerRepository.save(Customer.builder()
-                    .customerName("new name aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build());
+                    .username("new name aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build());
             beerRepository.flush();
         });
     }

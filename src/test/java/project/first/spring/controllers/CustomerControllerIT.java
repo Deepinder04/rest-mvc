@@ -110,13 +110,13 @@ public class CustomerControllerIT {
     void testUpdateExistingCustomer(){
         Customer customer = customerRepository.findAll().get(0);
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-        customerDTO.setCustomerName("Updated customer");
+        customerDTO.setUsername("Updated customer");
 
         ResponseEntity responseEntity = customerController.updateById(customer.getId(),customerDTO);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
-        String updatedName = customerRepository.findById(customer.getId()).get().getCustomerName();
-        assertThat(updatedName).isEqualTo(customerDTO.getCustomerName());
+        String updatedName = customerRepository.findById(customer.getId()).get().getUsername();
+        assertThat(updatedName).isEqualTo(customerDTO.getUsername());
     }
 
     @Rollback
@@ -124,7 +124,7 @@ public class CustomerControllerIT {
     @Test
     void testSaveCustomer() throws JsonProcessingException {
         CustomerDTO customerDTO = CustomerDTO.builder()
-                .customerName("deep")
+                .username("deep")
                 .email("deepinder.sidhu@mobikwik.com")
                 .build();
 

@@ -2,16 +2,12 @@ package project.first.spring.bootstrap;
 
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 import project.first.spring.entities.Beer;
-import project.first.spring.entities.Customer;
 import project.first.spring.model.BeerCSVRecord;
-import project.first.spring.model.BeerDTO;
 import project.first.spring.model.BeerStyle;
-import project.first.spring.model.CustomerDTO;
 import project.first.spring.repositories.BeerRepository;
 import project.first.spring.repositories.CustomerRepository;
 import project.first.spring.services.CsvService;
@@ -21,7 +17,6 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -35,7 +30,6 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         loadBeerData();
-        loadCustomerData();
         loadCSVData();
     }
 
@@ -109,34 +103,4 @@ public class BootstrapData implements CommandLineRunner {
             beerRepository.save(beer3);
         }
     }
-
-    void loadCustomerData(){
-        if (customerRepository.count() == 0){
-            Customer c1 = Customer.builder()
-                    .customerName("deep")
-                    .email("deepinder.sidhu@mobikwik.com")
-                    .createdAt(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
-                    .build();
-
-            Customer c2 = Customer.builder()
-                    .customerName("vinay")
-                    .email("vinay.patanjali@mobikwik.com")
-                    .createdAt(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
-                    .build();
-
-            Customer c3 = Customer.builder()
-                    .customerName("ajay")
-                    .email("ajay.kumar@mobikwik.com")
-                    .createdAt(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
-                    .build();
-
-            customerRepository.save(c1);
-            customerRepository.save(c2);
-            customerRepository.save(c3);
-        }
-    }
-
 }

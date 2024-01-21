@@ -17,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerMap = new HashMap<>();
 
         CustomerDTO c1 = CustomerDTO.builder()
-                .customerName("deep")
+                .username("deep")
                 .email("deepinder.sidhu@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 
         CustomerDTO c2 = CustomerDTO.builder()
-                .customerName("vinay")
+                .username("vinay")
                 .email("vinay.patanjali@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
 
         CustomerDTO c3 = CustomerDTO.builder()
-                .customerName("ajay")
+                .username("ajay")
                 .email("ajay.kumar@mobikwik.com")
                 .id(UUID.randomUUID())
                 .version(1)
@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
 
         CustomerDTO savedCustomerDTO = CustomerDTO.builder()
-                .customerName(customerDTO.getCustomerName())
+                .username(customerDTO.getUsername())
                 .version(customerDTO.getVersion())
                 .id(customerDTO.getId())
                 .createdAt(LocalDateTime.now())
@@ -83,15 +83,15 @@ public class CustomerServiceImpl implements CustomerService {
     public void patchCustomerById(UUID customerId, CustomerDTO customerDTO) {
 
         CustomerDTO customerDTOPatch = customerMap.get(customerId);
-        if(StringUtils.hasText(customerDTO.getCustomerName())){
-            customerDTOPatch.setCustomerName(customerDTO.getCustomerName());
+        if(StringUtils.hasText(customerDTO.getUsername())){
+            customerDTOPatch.setUsername(customerDTO.getUsername());
         }
     }
 
     @Override
     public void updateById(UUID customerId, CustomerDTO customerDTO) {
         CustomerDTO updated = customerMap.get(customerId);
-        updated.setCustomerName(customerDTO.getCustomerName());
+        updated.setUsername(customerDTO.getUsername());
         customerMap.put(updated.getId(),updated);
     }
 }

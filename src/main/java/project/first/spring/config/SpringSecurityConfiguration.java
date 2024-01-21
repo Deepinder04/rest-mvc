@@ -14,7 +14,13 @@ public class SpringSecurityConfiguration {
                 .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html")
                 .permitAll()
                 .anyRequest().authenticated()
-                .and().oauth2ResourceServer().jwt();
+                .and().formLogin()
+                .loginPage("/login.html")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/homepage.html", true)
+                .and()
+                .oauth2ResourceServer().jwt();
+        httpSecurity.headers().frameOptions().sameOrigin();
         return httpSecurity.build();
     }
 }

@@ -43,6 +43,6 @@ class BeerOrderRepositoryTest {
                 .build();
 
         BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
-        System.out.println(savedBeerOrder.getCustomer().getCustomerName());
+        System.out.println(savedBeerOrder.getCustomer().getUsername());
     }
 }

@@ -1,12 +1,14 @@
 package project.first.spring.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
+import project.first.spring.entities.security.Authority;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -31,8 +33,30 @@ public class Customer {
     @NotEmpty
     @Size(max = 50)
     @Column(length = 50)
-    private String customerName;
+    private String username;
     private String email;
+
+    @NotEmpty
+    private String password;
+
+    @Singular
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "customer_authority",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Set<Authority> authorities;
+
+    @Builder.Default
+    private Boolean accountNonExpired = true;
+
+    @Builder.Default
+    private Boolean accountNonLocked = true;
+
+    @Builder.Default
+    private Boolean credentialsNonExpired = true;
+
+    @Builder.Default
+    private Boolean enabled = true;
 
     @Version
     private Integer version;

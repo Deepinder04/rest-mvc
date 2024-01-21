@@ -17,7 +17,7 @@ public class CustomerDTO {
     @NotEmpty
     @Size(max = 50)
     @Column(length = 50)
-    private String customerName;
+    private String username;
     private String email;
     private Integer version;
     private LocalDateTime createdAt;
