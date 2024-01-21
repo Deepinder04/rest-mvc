@@ -1,0 +1,46 @@
+package project.first.spring.Utils.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import project.first.spring.Utils.enums.ConfigCategory;
+import project.first.spring.Utils.enums.ConfigType;
+
+import java.time.LocalDateTime;
+
+@Table(name = "config")
+@Entity(name = "config")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class Config {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private ConfigType configType;
+
+    @Column(name = "category")
+    @Enumerated(EnumType.STRING)
+    private ConfigCategory configCategory;
+
+    @Column(name = "data")
+    private String data;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+}
+
