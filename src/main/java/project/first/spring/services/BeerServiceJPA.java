@@ -19,8 +19,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import static project.first.spring.Utils.Constants.DEFAULT_PAGE;
-import static project.first.spring.Utils.Constants.DEFAULT_PAGE_SIZE;
+import static project.first.spring.Utilities.Constants.DEFAULT_PAGE;
+import static project.first.spring.Utilities.Constants.DEFAULT_PAGE_SIZE;
 
 @Service
 @Primary

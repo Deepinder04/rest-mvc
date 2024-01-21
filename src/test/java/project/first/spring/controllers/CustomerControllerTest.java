@@ -29,7 +29,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static project.first.spring.Utils.Constants.*;
+import static project.first.spring.Utilities.Constants.*;
 import static project.first.spring.controllers.BeerControllerTest.jwtRequestPostProcessor;
 
 @WebMvcTest(CustomerController.class)

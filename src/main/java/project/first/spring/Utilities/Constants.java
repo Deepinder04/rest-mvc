@@ -1,4 +1,4 @@
-package project.first.spring.Utils;
+package project.first.spring.Utilities;
 
 public class Constants {
 

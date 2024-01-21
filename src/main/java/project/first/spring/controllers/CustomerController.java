@@ -11,10 +11,9 @@ import project.first.spring.model.CustomerDTO;
 import project.first.spring.services.CustomerService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import static project.first.spring.Utils.Constants.CUSTOMER_PATH;
+import static project.first.spring.Utilities.Constants.CUSTOMER_PATH;
 
 @RequiredArgsConstructor
 @RestController

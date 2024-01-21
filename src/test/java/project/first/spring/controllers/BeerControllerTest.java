@@ -33,7 +33,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static project.first.spring.Utils.Constants.*;
+import static project.first.spring.Utilities.Constants.*;
 
 @WebMvcTest(BeerController.class)
 @Import(SpringSecurityConfiguration.class)

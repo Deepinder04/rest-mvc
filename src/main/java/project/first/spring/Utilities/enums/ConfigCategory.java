@@ -1,4 +1,4 @@
-package project.first.spring.Utils.enums;
+package project.first.spring.Utilities.enums;
 
 public enum ConfigCategory {
     HEADER,

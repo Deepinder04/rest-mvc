@@ -33,7 +33,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static project.first.spring.Utils.Constants.*;
+import static project.first.spring.Utilities.Constants.*;
 import static project.first.spring.controllers.BeerControllerTest.jwtRequestPostProcessor;
 
 @SpringBootTest

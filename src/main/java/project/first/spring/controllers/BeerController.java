@@ -15,7 +15,7 @@ import project.first.spring.services.BeerService;
 
 import java.util.UUID;
 
-import static project.first.spring.Utils.Constants.BEER_PATH;
+import static project.first.spring.Utilities.Constants.BEER_PATH;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -1,11 +1,11 @@
-package project.first.spring.Utils.entities;
+package project.first.spring.Utilities.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import project.first.spring.Utils.enums.ConfigCategory;
-import project.first.spring.Utils.enums.ConfigType;
+import project.first.spring.Utilities.enums.ConfigCategory;
+import project.first.spring.Utilities.enums.ConfigType;
 
 import java.time.LocalDateTime;
 
@@ -41,6 +41,5 @@ public class Config {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
 }
 
