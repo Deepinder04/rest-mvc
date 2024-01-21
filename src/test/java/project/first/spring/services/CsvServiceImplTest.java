@@ -2,7 +2,10 @@ package project.first.spring.services;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ResourceUtils;
-import project.first.spring.model.BeerCSVRecord;
+import project.first.spring.flows.customerAndBeer.model.BeerCSVRecord;
+import project.first.spring.flows.customerAndBeer.services.CsvService;
+import project.first.spring.flows.customerAndBeer.services.CsvServiceImpl;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;

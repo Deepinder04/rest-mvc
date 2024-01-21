@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.first.spring.bootstrap.BootstrapData;
-import project.first.spring.entities.Beer;
-import project.first.spring.model.BeerStyle;
-import project.first.spring.services.CsvServiceImpl;
+import project.first.spring.flows.customerAndBeer.entities.Beer;
+import project.first.spring.flows.customerAndBeer.model.BeerStyle;
+import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
+import project.first.spring.flows.customerAndBeer.services.CsvServiceImpl;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

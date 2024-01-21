@@ -7,10 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import project.first.spring.entities.Customer;
-import project.first.spring.entities.security.Authority;
-import project.first.spring.repositories.AuthorityRepository;
-import project.first.spring.repositories.CustomerRepository;
+import project.first.spring.flows.customerAndBeer.entities.Customer;
+import project.first.spring.flows.customerAndBeer.repositories.AuthorityRepository;
+import project.first.spring.flows.customerAndBeer.repositories.CustomerRepository;
+
 
 import java.time.LocalDateTime;
 
@@ -29,9 +29,9 @@ public class UserDataLoader implements CommandLineRunner {
     }
 
     private void loadSecurityData() {
-        Authority admin = authorityRepository.save(Authority.builder().role("ADMIN").build());
-        Authority userRole = authorityRepository.save(Authority.builder().role("USER").build());
-        Authority customer = authorityRepository.save(Authority.builder().role("CUSTOMER").build());
+        project.first.spring.flows.customerAndBeer.entities.security.Authority admin = authorityRepository.save(project.first.spring.flows.customerAndBeer.entities.security.Authority.builder().role("ADMIN").build());
+        project.first.spring.flows.customerAndBeer.entities.security.Authority userRole = authorityRepository.save(project.first.spring.flows.customerAndBeer.entities.security.Authority.builder().role("USER").build());
+        project.first.spring.flows.customerAndBeer.entities.security.Authority customer = authorityRepository.save(project.first.spring.flows.customerAndBeer.entities.security.Authority.builder().role("CUSTOMER").build());
 
         customerRepository.save(Customer.builder()
                 .username("spring")

@@ -13,9 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import project.first.spring.config.SpringSecurityConfiguration;
-import project.first.spring.model.CustomerDTO;
-import project.first.spring.services.CustomerService;
-import project.first.spring.services.CustomerServiceImpl;
+import project.first.spring.flows.customerAndBeer.controllers.CustomerController;
+import project.first.spring.flows.customerAndBeer.model.CustomerDTO;
+import project.first.spring.flows.customerAndBeer.services.CustomerService;
+import project.first.spring.flows.customerAndBeer.services.CustomerServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;

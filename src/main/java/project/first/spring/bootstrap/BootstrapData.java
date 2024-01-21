@@ -5,12 +5,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
-import project.first.spring.entities.Beer;
-import project.first.spring.model.BeerCSVRecord;
-import project.first.spring.model.BeerStyle;
-import project.first.spring.repositories.BeerRepository;
-import project.first.spring.repositories.CustomerRepository;
-import project.first.spring.services.CsvService;
+import project.first.spring.flows.customerAndBeer.entities.Beer;
+import project.first.spring.flows.customerAndBeer.model.BeerCSVRecord;
+import project.first.spring.flows.customerAndBeer.model.BeerStyle;
+import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
+import project.first.spring.flows.customerAndBeer.repositories.CustomerRepository;
+import project.first.spring.flows.customerAndBeer.services.CsvService;
 
 import java.io.File;
 import java.io.FileNotFoundException;

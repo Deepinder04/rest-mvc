@@ -5,10 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.first.spring.entities.Beer;
-import project.first.spring.entities.BeerOrder;
-import project.first.spring.entities.BeerOrderShipment;
-import project.first.spring.entities.Customer;
+import project.first.spring.flows.customerAndBeer.entities.Beer;
+import project.first.spring.flows.customerAndBeer.entities.BeerOrder;
+import project.first.spring.flows.customerAndBeer.entities.BeerOrderShipment;
+import project.first.spring.flows.customerAndBeer.entities.Customer;
+import project.first.spring.flows.customerAndBeer.repositories.BeerOrderRepository;
+import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
+import project.first.spring.flows.customerAndBeer.repositories.CustomerRepository;
 
 @SpringBootTest
 class BeerOrderRepositoryTest {

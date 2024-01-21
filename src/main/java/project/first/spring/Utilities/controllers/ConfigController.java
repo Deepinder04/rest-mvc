@@ -24,17 +24,14 @@ public class ConfigController {
         Config config = configDAO.findByConfigTypeAndConfigCategory(type, category);
 
         if(Objects.isNull(config)){
-            Config config1 = Config.builder()
+            config = Config.builder()
                     .configCategory(category)
                     .configType(type)
                     .data(jsonHelper.toJson(data))
                     .build();
-            configDAO.save(config1);
-            return ResponseEntity.ok(config1);
-        } else {
-            config.setData(jsonHelper.toJson(data));
-            configDAO.save(config);
-        }
+        } else config.setData(jsonHelper.toJson(data));
+
+        configDAO.save(config);
 
         return ResponseEntity.ok(config);
     }
