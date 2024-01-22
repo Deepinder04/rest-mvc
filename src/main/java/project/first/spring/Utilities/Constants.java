@@ -9,4 +9,10 @@ public class Constants {
     public static final Integer DEFAULT_PAGE = 0;
     public static final Integer DEFAULT_PAGE_SIZE = 25;
     public static final String HOME_PATH = "/home";
+    public static final String UTILITY_CONTROLLER_PATH = "/sb/fc";
+
+    // common
+    public static final String HEADER = "header";
+    public static final String FOOTER = "footer";
+    public static final String COLLECTIONS = "collections";
 }

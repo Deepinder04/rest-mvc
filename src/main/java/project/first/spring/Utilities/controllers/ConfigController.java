@@ -11,8 +11,10 @@ import project.first.spring.Utilities.enums.ConfigType;
 
 import java.util.Objects;
 
+import static project.first.spring.Utilities.Constants.UTILITY_CONTROLLER_PATH;
+
 @RestController
-@RequestMapping("/sb/fc")
+@RequestMapping(UTILITY_CONTROLLER_PATH)
 @RequiredArgsConstructor
 public class ConfigController {
 
