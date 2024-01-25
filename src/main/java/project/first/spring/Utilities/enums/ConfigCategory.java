@@ -4,5 +4,7 @@ public enum ConfigCategory {
     HEADER,
     FOOTER,
     HOME_SCREEN,
-    COLLECTIONS
+    COLLECTIONS,
+    LOGIN,
+    SIGN_UP
 }
