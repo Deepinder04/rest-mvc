@@ -7,10 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import project.first.spring.flows.customerAndBeer.entities.Customer;
-import project.first.spring.flows.customerAndBeer.entities.security.Authority;
-import project.first.spring.flows.customerAndBeer.repositories.AuthorityRepository;
-import project.first.spring.flows.customerAndBeer.repositories.CustomerRepository;
+import project.first.spring.flows.Onboarding.entities.Customer;
+import project.first.spring.config.security.Authority;
+import project.first.spring.config.repositories.AuthorityRepository;
+import project.first.spring.flows.Onboarding.repositories.CustomerRepository;
 
 
 import java.time.LocalDateTime;

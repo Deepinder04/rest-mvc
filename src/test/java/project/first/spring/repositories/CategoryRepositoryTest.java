@@ -5,10 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.first.spring.flows.customerAndBeer.entities.Beer;
-import project.first.spring.flows.customerAndBeer.entities.Category;
-import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
-import project.first.spring.flows.customerAndBeer.repositories.CategoryRepository;
+import project.first.spring.flows.Beer.entities.Beer;
+import project.first.spring.flows.Beer.entities.Category;
+import project.first.spring.flows.Beer.repositories.BeerRepository;
+import project.first.spring.flows.Beer.repositories.CategoryRepository;
 
 @SpringBootTest
 class CategoryRepositoryTest {

@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.first.spring.bootstrap.BootstrapData;
-import project.first.spring.flows.customerAndBeer.entities.Beer;
-import project.first.spring.flows.customerAndBeer.model.BeerStyle;
-import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
-import project.first.spring.flows.customerAndBeer.services.CsvServiceImpl;
+import project.first.spring.flows.Beer.entities.Beer;
+import project.first.spring.flows.Beer.model.BeerStyle;
+import project.first.spring.flows.Beer.repositories.BeerRepository;
+import project.first.spring.flows.Beer.services.CsvServiceImpl;
 
 import java.math.BigDecimal;
 

@@ -4,9 +4,9 @@ import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import project.first.spring.flows.customerAndBeer.entities.Customer;
-import project.first.spring.flows.customerAndBeer.repositories.BeerRepository;
-import project.first.spring.flows.customerAndBeer.repositories.CustomerRepository;
+import project.first.spring.flows.Onboarding.entities.Customer;
+import project.first.spring.flows.Beer.repositories.BeerRepository;
+import project.first.spring.flows.Onboarding.repositories.CustomerRepository;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

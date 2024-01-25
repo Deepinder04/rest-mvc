@@ -7,7 +7,7 @@ import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import project.first.spring.flows.customerAndBeer.Exceptions.NotFoundException;
+import project.first.spring.flows.Beer.Exceptions.NotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
