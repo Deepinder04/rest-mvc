@@ -2,11 +2,14 @@ package project.first.spring.Utilities.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import project.first.spring.Utilities.Utils.MessageApiResponse;
+import project.first.spring.Utilities.response.SbApiResponse;
 import project.first.spring.flows.Beer.Exceptions.NotFoundException;
 
 import java.util.HashMap;
@@ -47,5 +50,11 @@ public class GlobalExceptionHandler {
             return responseEntity.body(errors);
         }
         return responseEntity.build();
+    }
+
+    @ExceptionHandler(OnboardingException.class)
+    public ResponseEntity<SbApiResponse> handleOnboardingExceptions(OnboardingException exception){
+        log.error("SbException {}", exception.getMessage(), exception);
+        return new ResponseEntity<>(SbApiResponse.buildFailure(MessageApiResponse.build(exception.getErrorCode())), HttpStatus.OK);
     }
 }

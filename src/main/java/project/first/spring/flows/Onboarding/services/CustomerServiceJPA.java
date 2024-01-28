@@ -1,13 +1,22 @@
 package project.first.spring.flows.Onboarding.services;
 
-import lombok.AllArgsConstructor;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import project.first.spring.Utilities.Utils.ErrorCode;
+import project.first.spring.Utilities.encryption.EncryptionService;
+import project.first.spring.Utilities.exceptions.OnboardingException;
 import project.first.spring.flows.Beer.Exceptions.NotFoundException;
 import project.first.spring.flows.Onboarding.entities.Customer;
 import project.first.spring.flows.Onboarding.mapper.CustomerMapper;
 import project.first.spring.flows.Onboarding.model.CustomerDTO;
+import project.first.spring.flows.Onboarding.model.LoginDto;
+import project.first.spring.flows.Onboarding.model.SignUpDto;
+import project.first.spring.flows.Onboarding.pageRender.constants.OnboardingConstants;
 import project.first.spring.flows.Onboarding.repositories.CustomerRepository;
 
 import java.util.List;
@@ -17,11 +26,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Primary
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CustomerServiceJPA implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private EncryptionService encryptionService;
 
     @Override
     public List<CustomerDTO> customerList() {
@@ -67,5 +77,34 @@ public class CustomerServiceJPA implements CustomerService {
         if(StringUtils.hasText(customerDTO.getUsername()))
             customer.setUsername(customerDTO.getUsername());
         customerRepository.save(customer);
+    }
+
+    @Override
+    public String login(LoginDto loginDto) {
+        Optional<Customer> customer = customerRepository.findByEmail(loginDto.getEmail());
+        if (customer.isEmpty())
+            throw new OnboardingException(ErrorCode.ONBOARDING_01);
+
+        if (!encryptionService.verifyPassword(loginDto.getPassword(), customer.get().getPassword()))
+            throw new OnboardingException(ErrorCode.ONBOARDING_02);
+
+        return OnboardingConstants.LOGIN_SUCCESS_MESSAGE;
+    }
+
+    @Override
+    public String signUp(SignUpDto signUpDto) {
+        Optional<Customer> customer = customerRepository.findByEmail(signUpDto.getEmail());
+        if (customer.isPresent())
+            throw new OnboardingException(ErrorCode.ONBOARDING_03);
+
+        Customer customerToSignUp = Customer.builder()
+                .username(signUpDto.getFirstName() + " " + signUpDto.getLastName())
+                .email(signUpDto.getEmail())
+                .password(signUpDto.getPassword())
+                .build();
+
+        customerRepository.save(customerToSignUp);
+
+        return OnboardingConstants.SIGN_UP_SUCCESS_MESSAGE;
     }
 }

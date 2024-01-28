@@ -10,6 +10,7 @@ import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 import project.first.spring.config.security.Authority;
 import project.first.spring.flows.Beer.entities.BeerOrder;
+import project.first.spring.flows.Onboarding.listeners.CustomerEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "customer")
+@EntityListeners(CustomerEntityListener.class)
 public class Customer {
     @Id
     @GeneratedValue(generator = "UUID")
