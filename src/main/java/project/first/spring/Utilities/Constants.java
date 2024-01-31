@@ -10,6 +10,7 @@ public class Constants {
     public static final Integer DEFAULT_PAGE_SIZE = 25;
     public static final String HOME_PATH = "/home";
     public static final String UTILITY_CONTROLLER_PATH = "/sb/fc";
+    public static final String CONFIG_INSERT_PATH =  "/insert/config";
 
     // common
     public static final String HEADER = "header";

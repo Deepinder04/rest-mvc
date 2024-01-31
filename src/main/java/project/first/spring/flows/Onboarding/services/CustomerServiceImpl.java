@@ -3,6 +3,8 @@ package project.first.spring.flows.Onboarding.services;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import project.first.spring.flows.Onboarding.model.CustomerDTO;
+import project.first.spring.flows.Onboarding.model.LoginDto;
+import project.first.spring.flows.Onboarding.model.SignUpDto;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -86,6 +88,16 @@ public class CustomerServiceImpl implements CustomerService {
         if(StringUtils.hasText(customerDTO.getUsername())){
             customerDTOPatch.setUsername(customerDTO.getUsername());
         }
+    }
+
+    @Override
+    public String login(LoginDto loginDto) {
+        return null;
+    }
+
+    @Override
+    public String signUp(SignUpDto signUpDto) {
+        return null;
     }
 
     @Override

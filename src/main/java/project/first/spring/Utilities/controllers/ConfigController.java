@@ -11,6 +11,7 @@ import project.first.spring.Utilities.enums.ConfigType;
 
 import java.util.Objects;
 
+import static project.first.spring.Utilities.Constants.CONFIG_INSERT_PATH;
 import static project.first.spring.Utilities.Constants.UTILITY_CONTROLLER_PATH;
 
 @RestController
@@ -21,7 +22,7 @@ public class ConfigController {
     private final ConfigDAO configDAO;
     private final JsonHelper jsonHelper;
 
-    @PostMapping("/insert/config")
+    @PostMapping(CONFIG_INSERT_PATH)
     ResponseEntity<Config> updateConfig(@RequestParam("type") ConfigType type, @RequestParam("category") ConfigCategory category, @RequestBody Object data){
         Config config = configDAO.findByConfigTypeAndConfigCategory(type, category);
 
