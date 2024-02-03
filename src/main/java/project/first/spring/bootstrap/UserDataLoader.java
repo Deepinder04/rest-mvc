@@ -36,7 +36,7 @@ public class UserDataLoader implements CommandLineRunner {
 
         customerRepository.save(Customer.builder()
                 .username("spring")
-                .password(passwordEncoder.encode("guru"))
+                .password("guru")
                 .email("deepinder.sidhu@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
@@ -45,7 +45,7 @@ public class UserDataLoader implements CommandLineRunner {
 
         customerRepository.save(Customer.builder()
                 .username("user")
-                .password(passwordEncoder.encode("password"))
+                .password("password")
                 .email("vinay.patanjali@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
@@ -54,7 +54,7 @@ public class UserDataLoader implements CommandLineRunner {
 
         customerRepository.save(Customer.builder()
                 .username("scott")
-                .password(passwordEncoder.encode("tiger"))
+                .password("tiger")
                 .email("ajay.kumar@mobikwik.com")
                 .createdAt(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())

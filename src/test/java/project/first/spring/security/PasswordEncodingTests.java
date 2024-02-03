@@ -47,7 +47,7 @@ public class PasswordEncodingTests {
 
     @Test
     void BCryptPasswordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder(12);
+        PasswordEncoder encoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y, 12);
         System.out.println(encoder.encode(password));
     }
 }

@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class CustomPasswordEncoderFactories {
 
+    // useful for migration to new encoding
     public static PasswordEncoder createDelegatingPasswordEncoder() {
         String encodingId = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap();

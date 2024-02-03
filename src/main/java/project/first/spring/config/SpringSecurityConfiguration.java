@@ -2,10 +2,10 @@ package project.first.spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -16,7 +16,9 @@ public class SpringSecurityConfiguration {
         httpSecurity.csrf().ignoringRequestMatchers("/sb/fc/**")
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html","/sb/fc/**", "/api/v1/**").permitAll()
+                .requestMatchers("/sb/fc/**").authenticated().and().httpBasic(Customizer.withDefaults())
+                .authorizeHttpRequests()
+                .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html", "/api/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login.html")
@@ -26,5 +28,10 @@ public class SpringSecurityConfiguration {
                 .oauth2ResourceServer().jwt();
         httpSecurity.headers().frameOptions().sameOrigin();
         return httpSecurity.build();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
