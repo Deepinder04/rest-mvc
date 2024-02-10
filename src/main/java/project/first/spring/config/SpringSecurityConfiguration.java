@@ -16,12 +16,8 @@ public class SpringSecurityConfiguration {
         httpSecurity.csrf().ignoringRequestMatchers("/sb/fc/**")
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html","/sb/fc/**", "/api/v1/**").permitAll()
+                .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html","/sb/fc/**", "/api/v1/**", "/home").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/homepage.html", true)
                 .and()
                 .oauth2ResourceServer().jwt();
         httpSecurity.headers().frameOptions().sameOrigin();
