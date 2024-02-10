@@ -66,7 +66,7 @@ public class UserDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (authorityRepository.count() == 0) {
+        if (customerRepository.count() == 1) {
             loadSecurityData();
         }
     }
