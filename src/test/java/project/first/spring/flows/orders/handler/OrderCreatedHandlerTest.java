@@ -2,10 +2,13 @@ package project.first.spring.flows.orders.handler;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import project.first.spring.flows.orders.messages.OrderCreated;
 import project.first.spring.flows.orders.services.DispatchService;
+import project.first.spring.utils.TestEventData;
+
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
-import static project.first.spring.TestConstants.KAFKA_CONSUMER_PAYLOAD;
 
 
 class OrderCreatedHandlerTest {
@@ -21,7 +24,8 @@ class OrderCreatedHandlerTest {
 
     @Test
     void listen() {
-        handler.listen(KAFKA_CONSUMER_PAYLOAD);
-        verify(dispatchServiceMock, times(1)).process(KAFKA_CONSUMER_PAYLOAD);
+        OrderCreated orderCreatedMessage = TestEventData.buildOrderCreatedData(UUID.randomUUID(), UUID.randomUUID().toString());
+        handler.listen(orderCreatedMessage);
+        verify(dispatchServiceMock, times(1)).process(orderCreatedMessage);
     }
 }

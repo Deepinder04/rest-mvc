@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.first.spring.flows.Onboarding.entities.Customer;
-import project.first.spring.flows.Onboarding.repositories.CustomerRepository;
+import project.first.spring.flows.onboarding.entities.Customer;
+import project.first.spring.flows.onboarding.repositories.CustomerRepository;
 
 
 import java.util.Collection;

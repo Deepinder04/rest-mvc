@@ -16,13 +16,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import project.first.spring.flows.Beer.Exceptions.NotFoundException;
-import project.first.spring.flows.Beer.controllers.BeerController;
-import project.first.spring.flows.Beer.entities.Beer;
-import project.first.spring.flows.Beer.mappers.BeerMapper;
-import project.first.spring.flows.Beer.model.BeerDTO;
-import project.first.spring.flows.Beer.repositories.BeerRepository;
-import project.first.spring.flows.Beer.services.BeerService;
+import project.first.spring.flows.beer.Exceptions.NotFoundException;
+import project.first.spring.flows.beer.controllers.BeerController;
+import project.first.spring.flows.beer.entities.Beer;
+import project.first.spring.flows.beer.mappers.BeerMapper;
+import project.first.spring.flows.beer.model.BeerDTO;
+import project.first.spring.flows.beer.repositories.BeerRepository;
+import project.first.spring.flows.beer.services.BeerService;
 
 import java.util.*;
 

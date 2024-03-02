@@ -1,6 +1,8 @@
 package project.first.spring.flows.orders.services;
 
+import project.first.spring.flows.orders.messages.OrderCreated;
+
 public interface DispatchService {
 
-    void process(String payload);
+    void process(OrderCreated payload);
 }

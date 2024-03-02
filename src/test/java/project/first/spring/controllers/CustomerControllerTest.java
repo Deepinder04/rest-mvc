@@ -13,10 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import project.first.spring.config.SpringSecurityConfiguration;
-import project.first.spring.flows.Onboarding.controllers.CustomerController;
-import project.first.spring.flows.Onboarding.model.CustomerDTO;
-import project.first.spring.flows.Onboarding.services.CustomerService;
-import project.first.spring.flows.Onboarding.services.CustomerServiceImpl;
+import project.first.spring.flows.onboarding.controllers.CustomerController;
+import project.first.spring.flows.onboarding.model.CustomerDTO;
+import project.first.spring.flows.onboarding.services.CustomerService;
+import project.first.spring.flows.onboarding.services.CustomerServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;

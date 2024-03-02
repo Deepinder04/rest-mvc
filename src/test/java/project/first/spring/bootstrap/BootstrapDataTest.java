@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import project.first.spring.flows.Beer.repositories.BeerRepository;
-import project.first.spring.flows.Onboarding.repositories.CustomerRepository;
-import project.first.spring.flows.Beer.services.CsvService;
-import project.first.spring.flows.Beer.services.CsvServiceImpl;
+import project.first.spring.flows.beer.repositories.BeerRepository;
+import project.first.spring.flows.onboarding.repositories.CustomerRepository;
+import project.first.spring.flows.beer.services.CsvService;
+import project.first.spring.flows.beer.services.CsvServiceImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

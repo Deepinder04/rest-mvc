@@ -14,11 +14,11 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import project.first.spring.config.SpringSecurityConfiguration;
-import project.first.spring.flows.Beer.controllers.BeerController;
-import project.first.spring.flows.Beer.model.BeerDTO;
-import project.first.spring.flows.Beer.model.BeerStyle;
-import project.first.spring.flows.Beer.services.BeerService;
-import project.first.spring.flows.Beer.services.BeerServiceImpl;
+import project.first.spring.flows.beer.controllers.BeerController;
+import project.first.spring.flows.beer.model.BeerDTO;
+import project.first.spring.flows.beer.model.BeerStyle;
+import project.first.spring.flows.beer.services.BeerService;
+import project.first.spring.flows.beer.services.BeerServiceImpl;
 
 import java.time.Instant;
 import java.util.HashMap;

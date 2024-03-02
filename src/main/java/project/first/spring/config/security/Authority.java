@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import project.first.spring.flows.Onboarding.entities.Customer;
+import project.first.spring.flows.onboarding.entities.Customer;
 
 import java.util.Set;
 import java.util.UUID;

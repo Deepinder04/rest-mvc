@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import project.first.spring.flows.orders.messages.OrderCreated;
 import project.first.spring.flows.orders.services.DispatchService;
 
 @Slf4j
@@ -18,8 +19,8 @@ public class OrderCreatedHandler {
             topics = "order.created",
             groupId = "dispatch.order.created.consumer"
     )
-    public void listen(String payload){
-        log.info("Received message with payload :  {}", payload);
+    public void listen(OrderCreated payload){
+        log.info("Received message with item :  {}", payload);
         dispatchService.process(payload);
     }
 }

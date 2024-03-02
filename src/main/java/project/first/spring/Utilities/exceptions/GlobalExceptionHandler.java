@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import project.first.spring.Utilities.Utils.MessageApiResponse;
 import project.first.spring.Utilities.response.SbApiResponse;
-import project.first.spring.flows.Beer.Exceptions.NotFoundException;
+import project.first.spring.flows.beer.Exceptions.NotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
