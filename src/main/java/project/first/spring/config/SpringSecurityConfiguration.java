@@ -13,10 +13,10 @@ public class SpringSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.csrf().ignoringRequestMatchers("/sb/fc/**")
-                .and()
+        httpSecurity.cors().disable()
+                .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/sb/fc/**").authenticated().and().httpBasic(Customizer.withDefaults())
+                .requestMatchers("/sb/fc/**","/sb/cache**").authenticated().and().httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests()
                 .requestMatchers("/v3/api-docs**","/swagger-ui/**","/swagger-ui.html", "/api/v1/**").permitAll()
                 .anyRequest().authenticated()

@@ -3,6 +3,7 @@ package project.first.spring.flows.home.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import static project.first.spring.Utilities.Constants.HOME_PATH;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(HOME_PATH)
+@CrossOrigin(value = "*")
 public class HomeController {
 
     private final IPageRenderer<HomeScreenDto> homeScreenPageRender;
