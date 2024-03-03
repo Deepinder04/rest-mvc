@@ -24,6 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -78,7 +79,7 @@ public class ConfigControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data", is(MOCK_CONFIG_DATA)));
 
-        verify(configDAO).findByConfigTypeAndConfigCategory(configTypeCaptor.capture(),configCategoryCaptor.capture());
+        verify(configDAO, times(1)).findByConfigTypeAndConfigCategory(configTypeCaptor.capture(),configCategoryCaptor.capture());
 
         assertThat(configTypeCaptor.getValue()).isEqualTo(ConfigType.CONSTANTS);
         assertThat(configCategoryCaptor.getValue()).isEqualTo(ConfigCategory.HEADER);
