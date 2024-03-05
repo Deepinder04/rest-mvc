@@ -16,4 +16,8 @@ public class Constants {
     public static final String HEADER = "header";
     public static final String FOOTER = "footer";
     public static final String COLLECTIONS = "collections";
+
+    // kafka
+    public static final String ORDER_DISPATCHED_TOPIC = "order.dispatched";
+
 }
