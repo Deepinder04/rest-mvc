@@ -1,11 +1,12 @@
 package project.first.spring.processData.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.first.spring.Utilities.response.SbApiResponse;
 import project.first.spring.processData.model.enums.Rules;
+import project.first.spring.processData.model.pojos.InputData;
 import project.first.spring.processData.model.pojos.ProcessedData;
 import project.first.spring.processData.service.RuleBasedDataProcessingService;
 
@@ -22,9 +23,9 @@ public class RuleBasedDataProcessingController {
     private final RuleBasedDataProcessingService dataProcessingService;
 
     @PostMapping("/process-string-list")
-    public SbApiResponse processListOfString(@RequestBody List<String> inputData, @RequestParam("rules") List<Rules> rules){
+    public SbApiResponse processListOfString(@Valid @RequestBody InputData inputData, @RequestParam("rules") List<Rules> rules){
         log.info("List to process - {}, and applied rules are - {}", inputData, rules.toString());
-        List<ProcessedData> solutions = dataProcessingService.getSolutions(inputData, rules);
+        List<ProcessedData> solutions = dataProcessingService.getSolutions(inputData.getInput(), rules);
         return SbApiResponse.buildSuccess(solutions);
     }
 }

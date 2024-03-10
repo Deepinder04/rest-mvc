@@ -1,6 +1,7 @@
 package project.first.spring.Utilities.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +72,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity handleHttpMessageParsingError(HttpMessageNotReadableException exception) throws IOException {
         String errorMessage = exception.getMessage().split(":")[0];
+        return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    ResponseEntity handleValidationErrors(ValidationException exception){
+        String errorMessage = exception.getCause().getMessage();
         return ResponseEntity.badRequest().body(errorMessage);
     }
 }
