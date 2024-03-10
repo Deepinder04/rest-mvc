@@ -38,7 +38,7 @@ public class SbApiResponse {
 
         SbApiResponse sbApiResponse = new SbApiResponse(data, false, message);
 
-        log.info("fdApiResponse: " + sbApiResponse);
+        log.info("sbApiResponse: " + sbApiResponse);
         return sbApiResponse;
     }
 
@@ -48,14 +48,14 @@ public class SbApiResponse {
 
         SbApiResponse sbApiResponse = new SbApiResponse(data, false, message);
 
-        log.info("fdApiResponse: " + sbApiResponse);
+        log.info("sbApiResponse: " + sbApiResponse);
         return sbApiResponse;
     }
 
     public static SbApiResponse buildSuccess(Object data) {
 
         SbApiResponse sbApiResponse = new SbApiResponse(data, true,null);
-        log.info("fdApiResponse: " + sbApiResponse);
+        log.info("sbApiResponse: " + sbApiResponse);
         return sbApiResponse;
     }
     public static SbApiResponse buildSuccess(MessageApiResponse message, Object data) {
@@ -64,7 +64,7 @@ public class SbApiResponse {
 
         SbApiResponse sbApiResponse = new SbApiResponse(data, true, message);
 
-        log.info("fdApiResponse: " + sbApiResponse);
+        log.info("sbApiResponse: " + sbApiResponse);
         return sbApiResponse;
     }
 

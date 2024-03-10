@@ -11,6 +11,7 @@ public class Constants {
     public static final String HOME_PATH = "/home";
     public static final String UTILITY_CONTROLLER_PATH = "/sb/fc";
     public static final String CONFIG_INSERT_PATH =  "/insert/config";
+    public static final String RULE_PROCESS_PATH = "/sb";
 
     // common
     public static final String HEADER = "header";
