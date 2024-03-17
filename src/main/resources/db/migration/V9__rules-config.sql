@@ -1,0 +1,18 @@
+CREATE TABLE Rule (
+    rule_id INT PRIMARY KEY AUTO_INCREMENT,
+    rule_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    priority INT NOT NULL,
+    enabled BOOLEAN NOT NULL,
+    rule_type VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE RuleParameter (
+    parameter_id INT PRIMARY KEY AUTO_INCREMENT,
+    rule_id INT NOT NULL,
+    parameter_name VARCHAR(255) NOT NULL,
+    parameter_value VARCHAR(255) NOT NULL,
+    FOREIGN KEY (rule_id) REFERENCES Rule(rule_id) ON DELETE CASCADE
+);

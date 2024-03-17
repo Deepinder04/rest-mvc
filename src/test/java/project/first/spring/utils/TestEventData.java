@@ -31,6 +31,5 @@ public class TestEventData {
                .build()).collect(Collectors.toList());
     }
 
-    public static String INCORRECT_RULE_TEXT = "Incorrect value entered for key - rules";
     public static String ONLY_ONE_OR_NO_STRING_PROVIDED_TEXT = "Please enter at least 2 strings to make comparisons";
 }

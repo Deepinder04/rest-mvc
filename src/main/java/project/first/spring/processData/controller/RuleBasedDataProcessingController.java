@@ -23,9 +23,9 @@ public class RuleBasedDataProcessingController {
     private final RuleBasedDataProcessingService dataProcessingService;
 
     @PostMapping("/process-string-list")
-    public SbApiResponse processListOfString(@Valid @RequestBody InputData inputData, @RequestParam("rules") List<Rules> rules){
-        log.info("List to process - {}, and applied rules are - {}", inputData, rules.toString());
-        List<ProcessedData> solutions = dataProcessingService.getSolutions(inputData.getInput(), rules);
+    public SbApiResponse processListOfString(@Valid @RequestBody InputData inputData){
+        log.info("List to process - {}", inputData);
+        List<ProcessedData> solutions = dataProcessingService.getSolutions(inputData.getInput());
         return SbApiResponse.buildSuccess(solutions);
     }
 }

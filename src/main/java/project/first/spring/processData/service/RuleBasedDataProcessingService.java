@@ -6,9 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import project.first.spring.Utilities.dao.ConfigDAO;
 import project.first.spring.processData.config.RuleExecutorConfig;
+import project.first.spring.processData.model.enums.RuleType;
 import project.first.spring.processData.model.enums.Rules;
 import project.first.spring.processData.model.pojos.ProcessedData;
+import project.first.spring.processData.repository.RuleDAO;
 import project.first.spring.processData.rules.IStringListProcessRules;
 
 import java.util.ArrayList;
@@ -28,8 +31,11 @@ public class RuleBasedDataProcessingService {
     @Autowired
     private List<IStringListProcessRules> processingRules;
     private ExecutorService executorService;
+    private final RuleDAO ruleDAO;
     private final RuleExecutorConfig ruleExecutorConfig;
-    public RuleBasedDataProcessingService(final RuleExecutorConfig ruleExecutorConfig) {
+
+    public RuleBasedDataProcessingService(RuleDAO ruleDAO, final RuleExecutorConfig ruleExecutorConfig) {
+        this.ruleDAO = ruleDAO;
         this.ruleExecutorConfig = ruleExecutorConfig;
     }
     @PostConstruct
@@ -37,14 +43,17 @@ public class RuleBasedDataProcessingService {
         executorService = Executors.newFixedThreadPool(ruleExecutorConfig.threadPoolSize());
     }
 
-    public List<ProcessedData> getSolutions(List<String> inputData, List<Rules> rulesToApply){
+    public List<ProcessedData> getSolutions(List<String> inputData){
         List<ProcessedData> solutions = new ArrayList<>();
+
+        //TODO : cache this query
+        List<String> rulesToApply = ruleDAO.findNameByRuleTypeAndEnabledTrue(RuleType.STRING_LIST);
 
         List<CompletableFuture<List<ProcessedData>>> futures = rulesToApply.stream()
                 .map(ruleToApply -> CompletableFuture.supplyAsync(() -> {
-                    log.info("going to apply rule - {}", ruleToApply.name());
+                    log.info("going to apply rule - {}", ruleToApply);
                     return processingRules.parallelStream()
-                            .map(rule -> rule.process(inputData, ruleToApply.name()))
+                            .map(rule -> rule.process(inputData, ruleToApply))
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList());
                 }, executorService)).toList();

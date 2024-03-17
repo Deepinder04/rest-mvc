@@ -44,8 +44,6 @@ class RuleBasedDataProcessingControllerTest {
     MockMvc mockMvc;
     @Captor
     ArgumentCaptor<List<String>> stringListArgumentCaptor;
-    @Captor
-    ArgumentCaptor<List<Rules>> ruleListArgumentCaptor;
 
     @Test
     void processListOfStringSingleRule() throws Exception {
@@ -53,7 +51,7 @@ class RuleBasedDataProcessingControllerTest {
         String body = jsonHelper.getObjectMapper().writeValueAsString(testInputData);
 
         List<ProcessedData> processedData = TestEventData.getTestProcessedData(List.of(Rules.ASCENDING), testInputData.getInput().toString());
-        given(dataProcessingService.getSolutions(any(), any())).willReturn(processedData);
+        given(dataProcessingService.getSolutions(any())).willReturn(processedData);
 
         mockMvc.perform(post(RULE_PROCESS_PATH + "/process-string-list")
                         .queryParam("rules", Rules.ASCENDING.name())
@@ -65,9 +63,8 @@ class RuleBasedDataProcessingControllerTest {
                 .andExpect(jsonPath("data[0].message", is(Rules.ASCENDING.getDescription())))
                 .andReturn();
 
-        verify(dataProcessingService, times(1)).getSolutions(stringListArgumentCaptor.capture(), ruleListArgumentCaptor.capture());
+        verify(dataProcessingService, times(1)).getSolutions(stringListArgumentCaptor.capture());
         assertThat(stringListArgumentCaptor.getValue()).isEqualTo(testInputData.getInput());
-        assertThat(ruleListArgumentCaptor.getValue()).isEqualTo(List.of(Rules.ASCENDING));
     }
 
     @Test
@@ -76,7 +73,7 @@ class RuleBasedDataProcessingControllerTest {
         String body = jsonHelper.getObjectMapper().writeValueAsString(testInputData);
 
         List<ProcessedData> processedData = TestEventData.getTestProcessedData(List.of(Rules.ASCENDING,Rules.DESCENDING, Rules.GROUP_COMMON_STRINGS), testInputData.getInput().toString());
-        given(dataProcessingService.getSolutions(any(), any())).willReturn(processedData);
+        given(dataProcessingService.getSolutions(any())).willReturn(processedData);
 
         mockMvc.perform(post(RULE_PROCESS_PATH + "/process-string-list")
                         .queryParam("rules", Rules.ASCENDING.name() + "," + Rules.DESCENDING.name() + "," + Rules.GROUP_COMMON_STRINGS.name())
@@ -87,26 +84,8 @@ class RuleBasedDataProcessingControllerTest {
                 .andExpect(jsonPath("$.data.length()", is(3)))
                 .andReturn();
 
-        verify(dataProcessingService, times(1)).getSolutions(stringListArgumentCaptor.capture(), ruleListArgumentCaptor.capture());
+        verify(dataProcessingService, times(1)).getSolutions(stringListArgumentCaptor.capture());
         assertThat(stringListArgumentCaptor.getValue()).isEqualTo(testInputData.getInput());
-        assertThat(ruleListArgumentCaptor.getValue()).isEqualTo(List.of(Rules.ASCENDING, Rules.DESCENDING, Rules.GROUP_COMMON_STRINGS));
-    }
-
-    @Test
-    void incorrectRule() throws Exception {
-        InputData testInputData = TestEventData.getTestInputData(true);
-        String body = jsonHelper.getObjectMapper().writeValueAsString(testInputData);
-
-        MvcResult mvcResult = mockMvc.perform(post(RULE_PROCESS_PATH + "/process-string-list")
-                        .queryParam("rules", "Incorrect rule")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(body)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(TestEventData.INCORRECT_RULE_TEXT);
-        verify(dataProcessingService, times(0)).getSolutions(any(), any());
     }
 
     @Test
@@ -123,6 +102,6 @@ class RuleBasedDataProcessingControllerTest {
                 .andReturn();
 
         assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(TestEventData.ONLY_ONE_OR_NO_STRING_PROVIDED_TEXT);
-        verify(dataProcessingService, times(0)).getSolutions(any(), any());
+        verify(dataProcessingService, times(0)).getSolutions(any());
     }
 }
