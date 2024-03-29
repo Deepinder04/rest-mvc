@@ -3,17 +3,22 @@ package project.first.spring.flows.Onboarding.listeners;
 import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import project.first.spring.Utilities.encryption.EncryptionService;
 import project.first.spring.flows.Onboarding.entities.Customer;
 
-@RequiredArgsConstructor
 @Component
 @Slf4j
 public class CustomerEntityListener {
 
-    private static EncryptionService encryptionService;
+    private final EncryptionService encryptionService;
+
+    @Autowired
+    public CustomerEntityListener(EncryptionService encryptionService) {
+        this.encryptionService = encryptionService;
+    }
 
     @PrePersist
     @PreUpdate
