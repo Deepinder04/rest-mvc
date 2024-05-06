@@ -1,4 +1,4 @@
-package project.first.spring.fileConversion.model.portfolio;
+package project.first.spring.cas.model.portfolio;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,13 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.first.spring.fileConversion.model.personalisation.*;
+import project.first.spring.cas.enums.InvestmentTypeEnum;
+import project.first.spring.cas.model.personalisation.*;
 
 import java.math.BigDecimal;
 
-/**
- * This class is being use to update module's investment in mongo
- */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
