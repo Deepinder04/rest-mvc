@@ -16,7 +16,6 @@ import project.first.spring.cas.model.portfolio.UserDateWiseMfNav;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,7 +27,7 @@ public class PrefillBackDatedInfoService {
     private final InvestmentLedgerDao investmentLedgerDao;
     private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-    public void prefillModuleLedgersAndConsolidatedCollections(Long startingMemberUid, Long endMemberUid) {
+    public void backfillModuleWiseLedgers(Long startingMemberUid, Long endMemberUid) {
         Pageable pageRequest = PageRequest.of(0, 100);
         Page<ConsolidatePortfolio> consolidatePortfolioPage = null;
 
@@ -62,28 +61,28 @@ public class PrefillBackDatedInfoService {
             CompletableFuture[] futures = new CompletableFuture[8];
 
             if(Objects.nonNull(portfolio.getXtraInvestment()))
-                futures[0] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getXtraInvestment(), InvestmentTypeEnum.XTRA, portfolio.getMemberUid()), executorService);
+                futures[0] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getXtraInvestment(), InvestmentTypeEnum.p2p, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getGoldInvestment()))
-                futures[1] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getGoldInvestment(), InvestmentTypeEnum.GOLD, portfolio.getMemberUid()), executorService);
+                futures[1] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getGoldInvestment(), InvestmentTypeEnum.gold, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getMfInvestment()))
-                futures[2] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getMfInvestment(), InvestmentTypeEnum.MUTUALFUND, portfolio.getMemberUid()), executorService);
+                futures[2] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getMfInvestment(), InvestmentTypeEnum.mutualfund, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getEpfoInvestment()))
-                futures[3] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getEpfoInvestment(), InvestmentTypeEnum.EPFO, portfolio.getMemberUid()), executorService);
+                futures[3] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getEpfoInvestment(), InvestmentTypeEnum.epfo, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getBankAccountBalance()))
-                futures[4] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getBankAccountBalance(), InvestmentTypeEnum.BANK_ACCOUNT, portfolio.getMemberUid()), executorService);
+                futures[4] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getBankAccountBalance(), InvestmentTypeEnum.bankAccount, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getFdInvestment()))
-                futures[5] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getFdInvestment(), InvestmentTypeEnum.FD, portfolio.getMemberUid()), executorService);
+                futures[5] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getFdInvestment(), InvestmentTypeEnum.fd, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getIddInvestment()))
-                futures[6] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getIddInvestment(), InvestmentTypeEnum.IDD, portfolio.getMemberUid()), executorService);
+                futures[6] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getIddInvestment(), InvestmentTypeEnum.idd, portfolio.getMemberUid()), executorService);
 
             if(Objects.nonNull(portfolio.getConsolidateInvestment()))
-                futures[7] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getConsolidateInvestment(), InvestmentTypeEnum.CONSOLIDATED, portfolio.getMemberUid()), executorService);
+                futures[7] = CompletableFuture.runAsync(() -> processTreeMap(portfolio.getConsolidateInvestment(), InvestmentTypeEnum.consolidated, portfolio.getMemberUid()), executorService);
 
             CompletableFuture.allOf(futures).join();
             log.info("Portfolio processed for user - {}", portfolio.getMemberUid());

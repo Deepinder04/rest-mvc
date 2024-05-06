@@ -1,14 +1,14 @@
 package project.first.spring.cas.enums;
 
 public enum InvestmentTypeEnum {
-    MUTUALFUND("mutualfund"),
-    GOLD("gold"),
-    XTRA("p2p"),
-    EPFO("epfo"),
-    BANK_ACCOUNT("bankAccount"),
-    FD("fd"),
-    IDD("idd"),
-    CONSOLIDATED("consolidated");
+    mutualfund("mutualfund"),
+    gold("gold"),
+    p2p("p2p"),
+    epfo("epfo"),
+    bankAccount("bankAccount"),
+    fd("fd"),
+    idd("idd"),
+    consolidated("consolidated");
 
     private final String value;
 
