@@ -1,18 +1,15 @@
-package project.first.spring.fileConversion.dao.entities;
+package project.first.spring.cas.entities;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import project.first.spring.fileConversion.model.UserDateWiseMfNav;
+import project.first.spring.cas.model.portfolio.UserDateWiseMfNav;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.TreeMap;
 
-/**
- * This collection is being used to store user's all investment values from different product like mf/xtra/gold etc
- */
 @Document(collection = "ConsolidatePortfolio")
 @Builder
 @AllArgsConstructor
