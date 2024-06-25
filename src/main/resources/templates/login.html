@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<!-- Header section -->
+<h1><span id="header"></span></h1>
+<!-- Login form -->
+<p th:if="${loginError}" class="error">Wrong Username or password</p>
+<form action="/login" method="post">
+    <label th:for="${data.loginPage.login.fields[0].key}">Email:</label>
+    <input type="text" th:field="*{email}" th:placeholder="${data.loginPage.login.fields[0].displayText}"/><br/>
+
+    <label th:for="${data.loginPage.login.fields[1].key}">Password:</label>
+    <input type="password" th:field="*{password}" th:placeholder="${data.loginPage.login.fields[1].displayText}"/><br/>
+
+    <button type="submit" th:text="${data.loginPage.login.signInButton.displayText}">Sign In</button>
+</form>
+
+<!-- Extras section -->
+<div th:each="extra : ${data.loginPage.extras}">
+    <a th:href="@{|/${extra.key}|}" th:text="${extra.displayText}"></a>
+</div>
+
+<script th:inline="javascript">
+        /* Extracting JSON data from Thymeleaf context */
+        var jsonData =  [[${data}]];
+        var jsonObj = JSON.parse(jsonData);
+        console.log(jsonObj);
+
+        // Accessing JSON properties
+        var name = jsonObj.name;
+        var age = jsonObj.age;
+
+        var nt = document.getElementById("nt");
+        nt.innerText = name;
+
+        var at = document.getElementById("at");
+        at.innerText = age;
+    </script>
+</body>
+</html>

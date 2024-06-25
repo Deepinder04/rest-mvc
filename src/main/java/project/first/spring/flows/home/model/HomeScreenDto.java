@@ -12,4 +12,5 @@ public class HomeScreenDto {
     private String footer;
     private String body;
     private String collections;
+    private String user;
 }

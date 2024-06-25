@@ -12,6 +12,8 @@ import project.first.spring.Utilities.enums.ConfigType;
 import project.first.spring.Utilities.response.SbApiResponse;
 import project.first.spring.flows.Onboarding.model.LoginDto;
 
+import static project.first.spring.Utilities.Constants.FOOTER;
+import static project.first.spring.Utilities.Constants.HEADER;
 import static project.first.spring.flows.Onboarding.pageRender.constants.OnboardingConstants.LOGIN;
 
 @Component
@@ -28,9 +30,13 @@ public class LoginPageRender implements IPageRenderer<LoginDto> {
 
     private Object getLoginScreen() throws JsonProcessingException {
         JSONObject loginScreen = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.LOGIN).getData());
+        JSONObject header = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.HEADER).getData());
+        JSONObject footer = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.FOOTER).getData());
 
         JSONObject login = new JSONObject();
+        login.put(HEADER, header);
         login.put(LOGIN, loginScreen);
+        login.put(FOOTER, footer);
 
         return jsonHelper.getObjectMapper().readTree(login.toString());
     }

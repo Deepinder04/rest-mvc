@@ -26,17 +26,18 @@ public class HomeScreenPageRender implements IPageRenderer<HomeScreenDto> {
 
     @Override
     public SbApiResponse renderPageFromData(HomeScreenDto data) throws JsonProcessingException {
-        return SbApiResponse.buildSuccess(getHomeScreen());
+        return SbApiResponse.buildSuccess(getHomeScreen(data));
     }
 
-    private Object getHomeScreen() throws JsonProcessingException {
+    private Object getHomeScreen(HomeScreenDto data) throws JsonProcessingException {
         JSONObject homeScreenJson = new JSONObject();
         JSONObject header = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.HEADER).getData());
         JSONObject footer = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.FOOTER).getData());
         JSONObject body = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.HOME_SCREEN).getData());
         JSONObject collection = new JSONObject(configDAO.findByConfigTypeAndConfigCategory(ConfigType.CONSTANTS, ConfigCategory.COLLECTIONS).getData());
         JSONArray collections = (JSONArray) collection.get("collections");
-        
+
+        homeScreenJson.put(USER_DETAILS, data.getUser());
         homeScreenJson.put(HEADER, header);
         homeScreenJson.put(FOOTER, footer);
         homeScreenJson.put(HOME_SCREEN_BODY,body);

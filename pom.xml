@@ -10,6 +10,7 @@
 	</parent>
 	<groupId>project.first</groupId>
 	<artifactId>spring</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring</name>
 	<description>My first spring project</description>
@@ -110,6 +111,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
+			<version>3.6.1</version>
+		</dependency>
 
 	</dependencies>
 
@@ -203,6 +219,7 @@
                 </configuration>
             </plugin>
         </plugins>
+		<finalName>Second-Breakfast-aws-exe</finalName>
 	</build>
 	<repositories>
 		<repository>
